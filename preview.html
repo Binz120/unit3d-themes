@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synthwave Grid — UNIT3D Theme Preview</title>
+<link rel="stylesheet" href="synthwave-grid.css">
+<style>
+/* Preview-only styles to simulate UNIT3D layout */
+body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; }
+.preview-container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+.preview-header { text-align: center; padding: 30px 0; }
+.preview-header h1 {
+    font-size: 2.5em; color: #00f0ff;
+    text-shadow: 0 0 20px rgba(0, 240, 255, 0.5), 0 0 40px rgba(255, 46, 151, 0.3);
+    margin: 0; letter-spacing: 2px;
+}
+.preview-header p { color: #9d8ec7; font-size: 1.1em; }
+
+/* Simulated top nav */
+.top-nav {
+    background: var(--top-nav-bg);
+    box-shadow: var(--top-nav-box-shadow);
+    padding: 0 20px;
+    display: flex; align-items: center; gap: 20px;
+    height: 56px; margin-bottom: 20px;
+    border-radius: 10px;
+}
+.top-nav__logo { font-size: 1.3em; font-weight: bold; color: #00f0ff; text-shadow: 0 0 8px rgba(0,240,255,0.4); }
+.top-nav__link { color: var(--color-light-purple); text-decoration: none; padding: 8px 12px; border-radius: 6px; }
+.top-nav__link:hover { color: #00f0ff; background: rgba(0,240,255,0.08); }
+.top-nav__stats { margin-left: auto; color: var(--color-light-green); font-size: 0.85em; }
+
+/* Simulated panel */
+.panel {
+    background: var(--panel-bg);
+    border: var(--panel-border);
+    border-radius: var(--panel-border-radius);
+    box-shadow: var(--panel-box-shadow);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.panel__head {
+    background: var(--panel-head-bg);
+    color: var(--panel-head-fg);
+    padding: 12px 16px;
+    font-weight: 600;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+}
+.panel__body { padding: 16px; }
+
+/* Simulated torrent table */
+.torrent-table { width: 100%; border-collapse: collapse; }
+.torrent-table th {
+    background: var(--data-table-th-bg);
+    color: #00f0ff;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.torrent-table td {
+    padding: 10px 12px;
+    border-bottom: var(--data-table-tr-border);
+    color: var(--torrent-row-fg);
+}
+.torrent-table tr:nth-child(even) { background: var(--data-table-tr-even-bg); }
+.torrent-table tr:nth-child(odd) { background: var(--data-table-tr-odd-bg); }
+.torrent-table tr:hover { background: var(--data-table-tr-hover-bg); }
+
+.torrent-table td.seeders, .seeders { color: var(--torrent-row-seeders-fg) !important; font-weight: 600; }
+.torrent-table td.leechers, .leechers { color: var(--torrent-row-leechers-fg) !important; font-weight: 600; }
+.torrent-table td.completed, .completed { color: var(--torrent-row-completed-fg) !important; font-weight: 600; }
+.freeleech {
+    color: var(--torrent-row-freeleech-fg);
+    background: rgba(255, 174, 0, 0.1);
+    padding: 2px 8px; border-radius: 4px;
+    font-size: 0.8em; font-weight: 600;
+}
+.internal {
+    color: var(--torrent-row-internal-fg);
+    background: rgba(255, 46, 151, 0.1);
+    padding: 2px 8px; border-radius: 4px;
+    font-size: 0.8em; font-weight: 600;
+}
+
+.tag {
+    display: inline-block;
+    color: var(--torrent-tag-fg);
+    background: var(--torrent-tag-bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    margin: 1px;
+}
+
+.btn-filled {
+    background: var(--button-filled-bg);
+    color: var(--button-filled-fg);
+    border: var(--button-filled-border);
+    border-radius: var(--button-filled-border-radius);
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    box-shadow: 0 0 10px rgba(255, 46, 151, 0.2);
+}
+.btn-outlined {
+    background: var(--button-outlined-bg);
+    color: var(--button-outlined-fg);
+    border: var(--button-outlined-border);
+    border-radius: var(--button-outlined-border-radius);
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin-bottom: 20px; }
+.card {
+    background: var(--torrent-card-bg);
+    border: var(--torrent-card-border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+}
+.card__head { background: var(--torrent-card-head-bg); color: var(--torrent-card-head-fg); padding: 10px 14px; font-weight: 600; }
+.card__body { padding: 14px; color: var(--text-color); }
+.card__meta { display: flex; gap: 15px; margin-top: 8px; font-size: 0.85em; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+.stat-card {
+    background: var(--user-stat-card-bg);
+    border: var(--user-stat-card-border);
+    border-radius: var(--user-stat-card-border-radius);
+    box-shadow: var(--user-stat-card-box-shadow);
+    padding: 16px;
+    text-align: center;
+}
+.stat-card__icon { font-size: 1.8em; margin-bottom: 8px; color: var(--color-blue); }
+.stat-card__value { font-size: 1.5em; font-weight: bold; color: #00f0ff; }
+.stat-card__label { color: var(--color-light-purple); font-size: 0.8em; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.chatbox {
+    background: var(--chatbox-message-bg);
+    border-radius: 10px;
+    padding: 16px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+.chat-msg { margin-bottom: 10px; }
+.chat-msg__user { color: var(--color-light-magenta); font-weight: 600; font-size: 0.85em; }
+.chat-msg__text { color: var(--text-color); font-size: 0.9em; padding-left: 8px; }
+.chat-bubble {
+    background: var(--message-bubble-bg);
+    border: var(--message-bubble-border);
+    border-radius: var(--message-bubble-border-radius);
+    box-shadow: var(--message-bubble-box-shadow);
+    padding: 10px 14px;
+    display: inline-block;
+    margin: 4px 0;
+    max-width: 80%;
+}
+
+.icon-showcase { display: flex; gap: 30px; flex-wrap: wrap; align-items: center; }
+.icon-item { text-align: center; }
+.icon-item span { display: block; margin-top: 6px; color: var(--color-light-purple); font-size: 0.75em; }
+.icon-item i { font-style: normal; }
+
+.pagination { display: flex; gap: 4px; justify-content: center; padding: 16px; }
+.page {
+    background: var(--paginate-bg);
+    color: var(--paginate-fg);
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+.page:hover { background: var(--paginate-bg-hover); color: #00f0ff; }
+.page.current { background: var(--paginate-bg-current); color: #00f0ff; font-weight: 600; }
+
+.alert {
+    background: var(--alert-bg);
+    color: var(--alert-fg);
+    border: 1px solid rgba(255, 174, 0, 0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(255, 174, 0, 0.1);
+    display: flex; align-items: center; gap: 10px;
+}
+.alert__icon { font-size: 1.2em; color: #ffae00; }
+
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; margin-bottom: 6px; color: var(--color-light-blue); font-size: 0.85em; font-weight: 600; }
+.form-input {
+    background: var(--body-bg);
+    border: var(--input-text-border);
+    border-radius: var(--input-text-border-radius);
+    color: var(--input-text-fg);
+    padding: var(--input-text-padding);
+    width: 100%;
+    box-sizing: border-box;
+}
+.form-input:focus { border: var(--input-text-border-active); outline: none; box-shadow: 0 0 8px rgba(0, 240, 255, 0.2); }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* Fake FontAwesome for icon display */
+.fa-user, .fa-user-plus, .fa-shield, .fa-fire, .fa-crown, .fa-terminal { display: inline-block; }
+</style>
+</head>
+<body>
+
+<div class="preview-container">
+
+    <div class="preview-header">
+        <h1>SYNTHWAVE GRID</h1>
+        <p>UNIT3D Custom Theme &mdash; Cyberpunk / Synthwave Aesthetic</p>
+    </div>
+
+    <div class="top-nav">
+        <div class="top-nav__logo">SYNTH<span style="color: var(--color-magenta)">WAVE</span></div>
+        <a class="top-nav__link" href="#">Browse</a>
+        <a class="top-nav__link" href="#">Torrents</a>
+        <a class="top-nav__link" href="#">Forum</a>
+        <a class="top-nav__link" href="#">MediaHub</a>
+        <div class="top-nav__stats">Ratio: 2.45 | Up: 1.2TB</div>
+    </div>
+
+    <div class="alert">
+        <span class="alert__icon">&#9889;</span>
+        <span><strong>Global Freeleech Active!</strong> All torrents are free for the next 48 hours. Upload stats still count.</span>
+    </div>
+
+    <div class="stat-grid">
+        <div class="stat-card">
+            <div class="stat-card__icon">&#128100;</div>
+            <div class="stat-card__value">1,847</div>
+            <div class="stat-card__label">Seeders</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card__icon">&#128202;</div>
+            <div class="stat-card__value">2.45</div>
+            <div class="stat-card__label">Ratio</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card__icon">&#128190;</div>
+            <div class="stat-card__value">1.2 TB</div>
+            <div class="stat-card__label">Uploaded</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card__icon">&#127919;</div>
+            <div class="stat-card__value">8,432</div>
+            <div class="stat-card__label">Snatched</div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel__head">&#9889; Latest Torrents</div>
+        <div class="panel__body" style="padding: 0">
+            <table class="torrent-table">
+                <thead>
+                    <tr>
+                        <th>Name</th><th>Size</th><th>S</th><th>L</th><th>C</th><th>Tags</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="#">Blade.Runner.2049.2017.2160p.UHD.BluRay.x265.HDR</a> <span class="freeleech">FREE</span></td>
+                        <td>65.2 GB</td><td class="seeders">342</td><td class="leechers">18</td><td class="completed">1,205</td>
+                        <td><span class="tag">2160p</span><span class="tag">HDR</span><span class="tag">x265</span></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Tron.Legacy.2010.1080p.BluRay.x265.10bit</a> <span class="internal">INTERNAL</span></td>
+                        <td>12.8 GB</td><td class="seeders">89</td><td class="leechers">3</td><td class="completed">567</td>
+                        <td><span class="tag">1080p</span><span class="tag">x265</span></td>
+                    </tr>
+                    <tr style="background: var(--torrent-row-sticky-bg);">
+                        <td><a href="#">Akira.1988.2160p.UHD.BluRay.DV.HDR.x265</a> <span class="freeleech">FREE</span></td>
+                        <td>45.1 GB</td><td class="seeders">156</td><td class="leechers">7</td><td class="completed">892</td>
+                        <td><span class="tag">2160p</span><span class="tag">DV</span><span class="tag">Anime</span></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Ghost.in.the.Shell.1995.Remastered.1080p</a></td>
+                        <td>8.4 GB</td><td class="seeders">67</td><td class="leechers">2</td><td class="completed">445</td>
+                        <td><span class="tag">1080p</span><span class="tag">Anime</span></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#">Drive.2011.1080p.BluRay.x265.10bit.Atmos</a></td>
+                        <td>14.2 GB</td><td class="seeders">203</td><td class="leechers">12</td><td class="completed">1,102</td>
+                        <td><span class="tag">1080p</span><span class="tag">x265</span><span class="tag">Atmos</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="two-col">
+        <div class="panel">
+            <div class="panel__head">&#127916; Featured Media</div>
+            <div class="panel__body">
+                <div class="cards-grid" style="margin-bottom: 0">
+                    <div class="card">
+                        <div class="card__head">Blade Runner 2049</div>
+                        <div class="card__body">
+                            <div>4K UHD &middot; HDR &middot; 65GB</div>
+                            <div class="card__meta">
+                                <span class="seeders">&#8593; 342</span>
+                                <span class="leechers">&#8595; 18</span>
+                                <span class="completed">&#10003; 1.2K</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__head">Tron Legacy</div>
+                        <div class="card__body">
+                            <div>1080p &middot; x265 &middot; 13GB</div>
+                            <div class="card__meta">
+                                <span class="seeders">&#8593; 89</span>
+                                <span class="leechers">&#8595; 3</span>
+                                <span class="completed">&#10003; 567</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel__head">&#128172; Shoutbox</div>
+            <div class="panel__body">
+                <div class="chatbox">
+                    <div class="chat-msg">
+                        <div class="chat-msg__user">Neo_Trace:</div>
+                        <div class="chat-bubble">
+                            <div class="chat-msg__text">anyone got the new DUNE in 4K HDR?</div>
+                        </div>
+                    </div>
+                    <div class="chat-msg">
+                        <div class="chat-msg__user">GlitchQueen:</div>
+                        <div class="chat-bubble">
+                            <div class="chat-msg__text">uploading it now, give me 10 mins &#9889;</div>
+                        </div>
+                    </div>
+                    <div class="chat-msg">
+                        <div class="chat-msg__user">SynthLord:</div>
+                        <div class="chat-bubble">
+                            <div class="chat-msg__text">freeleech is insane, my ratio is going crazy</div>
+                        </div>
+                    </div>
+                    <div class="chat-msg">
+                        <div class="chat-msg__user">Cyber_Witch:</div>
+                        <div class="chat-bubble">
+                            <div class="chat-msg__text">just hit power user &#127881; neon crown looking fresh</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel__head">&#127912; Custom SVG Icons</div>
+        <div class="panel__body">
+            <div class="icon-showcase">
+                <div class="icon-item">
+                    <i class="fa-user" style="font-size: 30px;"></i>
+                    <span>fa-user</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-user-plus" style="font-size: 30px;"></i>
+                    <span>fa-user-plus</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-shield" style="font-size: 30px;"></i>
+                    <span>fa-shield</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-fire" style="font-size: 30px;"></i>
+                    <span>fa-fire</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-crown" style="font-size: 30px;"></i>
+                    <span>fa-crown</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-terminal" style="font-size: 30px;"></i>
+                    <span>fa-terminal</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="two-col">
+        <div class="panel">
+            <div class="panel__head">&#128221; Form Controls</div>
+            <div class="panel__body">
+                <div class="form-group">
+                    <label class="form-label">Torrent Name</label>
+                    <input class="form-input" type="text" placeholder="Search torrents...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <input class="form-input" type="text" placeholder="Select category...">
+                </div>
+                <div style="display: flex; gap: 12px; margin-top: 16px;">
+                    <button class="btn-filled">Search</button>
+                    <button class="btn-outlined">Advanced</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel__head">&#128196; Pagination</div>
+            <div class="panel__body">
+                <p style="color: var(--color-light-purple); margin-bottom: 16px;">Page navigation with neon-styled buttons:</p>
+                <div class="pagination">
+                    <a class="page" href="#">&lsaquo; Prev</a>
+                    <a class="page" href="#">1</a>
+                    <a class="page current" href="#">2</a>
+                    <a class="page" href="#">3</a>
+                    <a class="page" href="#">4</a>
+                    <a class="page" href="#">5</a>
+                    <a class="page" href="#">Next &rsaquo;</a>
+                </div>
+                <div style="text-align: center; margin-top: 16px;">
+                    <p style="color: var(--color-light-purple); font-size: 0.85em;">
+                        Showing 21-40 of 1,847 results
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; padding: 30px 0; color: var(--color-light-purple); font-size: 0.85em;">
+        <p>Synthwave Grid Theme &middot; Built for UNIT3D Community Edition</p>
+        <p style="color: #6b5b8e; margin-top: 4px;">Deep purple base &middot; Neon pink &amp; cyan accents &middot; Glowing panels &middot; Custom SVG icons</p>
+    </div>
+
+</div>
+
+</body>
+</html>

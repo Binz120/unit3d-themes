@@ -1,0 +1,710 @@
+/* ============================================================================
+ * SYNTHWAVE GRID — UNIT3D Custom Theme
+ *
+ * A cyberpunk/synthwave aesthetic: deep purple-black base, neon pink & electric
+ * cyan accents, glowing panel shadows, perspective grid background, and custom
+ * geometric SVG icons replacing FontAwesome user-class icons.
+ *
+ * Deploy: Host at a public URL, paste into UNIT3D user settings → custom_css
+ * Best with: Built-in Galactic (style 1) or Material Dark (style 13) base theme
+ * ========================================================================== */
+
+/* ============================================================================
+ * 1. CSS CUSTOM PROPERTIES
+ * ========================================================================== */
+
+:root {
+    /* --- Base Color Palette (Synthwave) --- */
+    --text-color: #e0d6ff;
+    --color-dark-magenta: hsl(300, 60%, 12%);
+    --color-dark-green: hsl(160, 60%, 12%);
+    --color-dark-blue: hsl(220, 60%, 15%);
+    --color-dark-red: hsl(345, 60%, 12%);
+    --color-dark-purple: hsl(270, 50%, 15%);
+    --color-red: hsl(345, 100%, 55%);
+    --color-light-red: hsl(345, 100%, 65%);
+    --color-green: hsl(160, 100%, 45%);
+    --color-light-green: hsl(160, 100%, 55%);
+    --color-yellow: hsl(40, 100%, 50%);
+    --color-light-yellow: hsl(40, 100%, 60%);
+    --color-magenta: hsl(330, 100%, 55%);
+    --color-light-magenta: hsl(330, 100%, 65%);
+    --color-purple: hsl(270, 80%, 55%);
+    --color-light-purple: hsl(270, 80%, 65%);
+    --color-blue: hsl(190, 100%, 50%);
+    --color-light-blue: hsl(190, 100%, 60%);
+    --color-bright-white: hsl(270, 20%, 100%);
+    --color-light-orange: hsl(25, 100%, 55%);
+
+    /* --- Body --- */
+    --body-bg: #0d0221;
+    --body-fg: var(--text-color);
+
+    /* --- Links --- */
+    --color-links-colored: #00f0ff;
+    --color-links-hover: #5cf0ff;
+    --codeblock-background: #1a0b2e;
+
+    /* --- Buttons (neon pill style) --- */
+    --button-filled-bg: var(--color-magenta);
+    --button-filled-border: none;
+    --button-filled-border-radius: 9999px;
+    --button-filled-fg: white;
+    --button-outlined-bg: inherit;
+    --button-outlined-border: 1px solid var(--color-blue);
+    --button-outlined-border-radius: 9999px;
+    --button-outlined-fg: var(--color-blue);
+    --button-text-bg: inherit;
+    --button-text-border: none;
+    --button-text-border-radius: 5px;
+    --button-text-fg: currentColor;
+
+    /* --- Icon Buttons --- */
+    --icon-button-bg: inherit;
+    --icon-button-border: none;
+    --icon-button-border-radius: 9999px;
+    --icon-button-fg: currentColor;
+    --icon-button-filled-bg: var(--color-magenta);
+    --icon-button-filled-border: none;
+    --icon-button-filled-fg: white;
+
+    /* --- Panels (glowing dark purple) --- */
+    --panel-bg: #1a0b2e;
+    --panel-fg: var(--text-color);
+    --panel-border: 1px solid rgba(255, 46, 151, 0.15);
+    --panel-border-radius: 10px;
+    --panel-box-shadow: 0 0 20px rgba(255, 46, 151, 0.08), 0 4px 15px rgba(0, 0, 0, 0.4);
+    --panel-head-bg: #260a3f;
+    --panel-head-fg: #00f0ff;
+    --panel-action-fg: var(--color-light-purple);
+
+    /* --- Top Navigation (deep purple with neon underline) --- */
+    --top-nav-bg: #2d0a4e;
+    --top-nav-box-shadow: 0 4px 20px rgba(255, 46, 151, 0.15), 0 0 40px rgba(0, 240, 255, 0.05);
+    --top-nav-dropdown-fg: var(--text-color);
+    --top-nav-dropdown-hover-fg: #00f0ff;
+    --top-nav-dropdown-hover-bg: rgba(255, 46, 151, 0.12);
+    --top-nav-dropdown-hover-text-decoration: none;
+    --top-nav-dropdown-menu-bg: #1a0b2e;
+    --top-nav-dropdown-menu-border: 1px solid rgba(0, 240, 255, 0.2);
+    --top-nav-dropdown-menu-border-radius: 10px;
+    --top-nav-dropdown-menu-box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 46, 151, 0.1);
+    --top-nav-dropdown-menu-item-fg: var(--text-color);
+    --top-nav-dropdown-menu-item-bg: transparent;
+    --top-nav-dropdown-menu-item-hover-fg: #00f0ff;
+    --top-nav-dropdown-menu-item-hover-bg: rgba(0, 240, 255, 0.08);
+    --top-nav-dropdown-menu-item-hover-text-decoration: none;
+    --top-nav-dropdown-menu-item-icon-fg: var(--color-magenta);
+    --top-nav-dropdown-menu-item-icon-bg: rgba(255, 46, 151, 0.1);
+    --top-nav-ratio-bar-fg: var(--color-light-green);
+    --top-nav-icon-bar-icon-bg: rgba(0, 240, 255, 0.1);
+    --top-nav-icon-bar-icon-fg: var(--color-blue);
+    --top-nav-icon-bar-icon-border-radius: 50%;
+    --top-nav-icon-bar-icon-hover-bg: rgba(0, 240, 255, 0.2);
+    --top-nav-icon-bar-icon-hover-fg: var(--color-light-blue);
+    --top-nav-stats-fg: var(--color-light-purple);
+    --top-nav-toggle-fg: var(--color-blue);
+
+    /* --- Secondary Navigation --- */
+    --secondary-nav-bg: #1a0b2e;
+    --secondary-nav-tab-fg: var(--color-light-purple);
+    --secondary-nav-tab-bg: inherit;
+    --secondary-nav-tab-active-text-decoration: underline var(--color-magenta) 2px;
+    --secondary-nav-tab-hover-fg: #00f0ff;
+    --secondary-nav-tab-hover-bg: transparent;
+    --secondary-nav-tab-hover-text-decoration: underline var(--color-blue) 2px;
+    --secondary-nav-tab-menu-bg: #1a0b2e;
+    --secondary-nav-tab-menu-fg: var(--text-color);
+    --secondary-nav-tab-menu-border: 1px solid rgba(0, 240, 255, 0.15);
+    --secondary-nav-tab-menu-border-radius: 8px;
+    --secondary-nav-tab-menu-box-shadow: 0 0 20px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 46, 151, 0.08);
+
+    /* --- Data Tables --- */
+    --data-table-fg: var(--text-color);
+    --data-table-th-bg: #260a3f;
+    --data-table-thead-border: none;
+    --data-table-tr-border: 1px solid rgba(0, 240, 255, 0.08);
+    --data-table-tr-even-bg: #16092a;
+    --data-table-tr-hover-bg: rgba(255, 46, 151, 0.06);
+    --data-table-tr-odd-bg: #1a0b2e;
+    --data-table-tfoot-border: none;
+
+    /* --- Torrent Rows (neon status colors) --- */
+    --torrent-row-fg: var(--text-color);
+    --torrent-row-visited-fg: #c77dff;
+    --torrent-row-sticky-bg: rgba(255, 46, 151, 0.08);
+    --torrent-row-sticky-fg: var(--color-light-magenta);
+    --torrent-row-format-fg: var(--color-light-blue);
+    --torrent-row-format-bg: rgba(0, 240, 255, 0.08);
+    --torrent-row-buttons-fg: var(--color-light-purple);
+    --torrent-row-seeders-fg: #00ff9f;
+    --torrent-row-leechers-fg: #ff3860;
+    --torrent-row-completed-fg: #00f0ff;
+    --torrent-row-thanks-fg: #c77dff;
+    --torrent-row-comments-fg: #00ff9f;
+    --torrent-row-internal-fg: #ff2e97;
+    --torrent-row-personal-fg: #c77dff;
+    --torrent-row-stream-optimized-fg: #00f0ff;
+    --torrent-row-featured-fg: #ff2e97;
+    --torrent-row-freeleech-fg: #ffae00;
+    --torrent-row-double-upload-fg: #00ff9f;
+    --torrent-row-highspeed-fg: #ff6b00;
+    --torrent-row-sd-fg: #ff6b00;
+    --torrent-row-bumped-fg: #ffae00;
+
+    /* --- Torrent Tags --- */
+    --torrent-tag-fg: var(--color-light-blue);
+    --torrent-tag-bg: rgba(0, 240, 255, 0.06);
+    --torrent-tag-hover-fg: #ffffff;
+    --torrent-tag-hover-bg: rgba(0, 240, 255, 0.15);
+
+    /* --- Torrent Cards --- */
+    --torrent-card-bg: #1a0b2e;
+    --torrent-card-fg: var(--text-color);
+    --torrent-card-border: 1px solid rgba(255, 46, 151, 0.1);
+    --torrent-card-head-bg: #260a3f;
+    --torrent-card-head-fg: #00f0ff;
+    --torrent-card-link-fg: var(--color-blue);
+    --torrent-card-genre-fg: var(--color-light-purple);
+
+    /* --- Torrent Groups --- */
+    --torrent-group-bg: #16092a;
+    --torrent-group-header-bg: #260a3f;
+    --torrent-group-text: #e0d6ff;
+    --torrent-group-text-muted: #9d8ec7;
+    --torrent-group-table-stripe-even: rgba(255, 46, 151, 0.02);
+    --torrent-group-table-stripe-odd: rgba(0, 240, 255, 0.02);
+    --torrent-group-hover-brightness-emphasis: 1.3;
+    --torrent-group-chip-border: rgba(0, 240, 255, 0.1);
+
+    /* --- BBCode Input (Editor) --- */
+    --bbcode-input-header-bg: #260a3f;
+    --bbcode-input-body-bg: #16092a;
+    --bbcode-input-border: 1px solid rgba(0, 240, 255, 0.15);
+    --bbcode-input-border-radius: 8px;
+
+    /* --- BBCode Rendered (Display) --- */
+    --bbcode-rendered-fg-default: #e0d6ff;
+    --bbcode-rendered-fg-muted: #9d8ec7;
+    --bbcode-rendered-fg-subtle: #6b5b8e;
+    --bbcode-rendered-canvas-default: transparent;
+    --bbcode-rendered-canvas-subtle: #260a3f;
+    --bbcode-rendered-border-default: rgba(0, 240, 255, 0.12);
+    --bbcode-rendered-border-muted: rgba(255, 46, 151, 0.08);
+    --bbcode-rendered-neutral-muted: rgba(157, 142, 199, 0.15);
+    --bbcode-rendered-accent-fg: #00f0ff;
+    --bbcode-rendered-accent-emphasis: #0098cc;
+    --bbcode-rendered-attention-subtle: #ff2e97;
+    --bbcode-rendered-danger-fg: #ff3860cc;
+    --bbcode-rendered-quote-bg: rgba(255, 46, 151, 0.05);
+    --bbcode-rendered-quote-border: var(--color-magenta);
+
+    /* --- Forum Posts --- */
+    --post-bg: #1a0b2e;
+    --post-fg: var(--text-color);
+    --post-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    --post-head-fg: #00f0ff;
+    --post-head-bg: rgba(38, 10, 63, 0.5);
+    --post-toolbar-bg: #16092a;
+    --post-toolbar-fg: var(--color-light-purple);
+    --post-toolbar-hover-bg: rgba(255, 46, 151, 0.08);
+    --post-toolbar-hover-fg: #00f0ff;
+    --post-like-fg: #00ff9f;
+    --post-dislike-fg: #ff3860;
+    --post-aside-bg: #16092a;
+    --post-aside-fg: var(--color-light-purple);
+    --post-footer-fg: var(--text-color);
+
+    /* --- Chatbox / Message Bubbles --- */
+    --chatbox-message-bg: #260a3f;
+    --chatbox-button-fg: var(--color-light-purple);
+    --chatbox-button-hover-fg: #00f0ff;
+    --chatbox-users-bg: #16092a;
+    --chatbox-tab-delete-fg: #ff3860;
+    --chatbox-tab-delete-bg: rgba(255, 56, 96, 0.1);
+    --message-bubble-bg: #2d0a4e;
+    --message-bubble-fg: var(--text-color);
+    --message-bubble-box-shadow: 0 0 10px rgba(255, 46, 151, 0.1), 0 2px 5px rgba(0, 0, 0, 0.3);
+    --message-bubble-border-radius: 15px;
+    --message-bubble-border: 1px solid rgba(0, 240, 255, 0.1);
+    --message-bubble-avatar-border-radius: 50%;
+
+    /* --- Meta Pages (Movie/TV) --- */
+    --meta-backdrop-filter: brightness(0.25) saturate(1.5);
+    --meta-dropdown-backdrop-filter: brightness(0.3) blur(15px) saturate(1.5);
+    --meta-dropdown-bg: rgba(26, 11, 46, 0.85);
+    --meta-dropdown-backdrop-filter-hover: brightness(0.4) blur(15px) saturate(1.5);
+    --meta-dropdown-hover-bg: rgba(255, 46, 151, 0.12);
+    --meta-dropdown-fg: var(--text-color);
+    --meta-dropdown-hover-fg: #00f0ff;
+    --meta-description-fg: #c8b8e8;
+    --meta-id-tag-fg: #00f0ff;
+    --meta-id-tag-bg: rgba(0, 240, 255, 0.08);
+    --meta-id-tag-hover-fg: #ffffff;
+    --meta-id-tag-hover-bg: rgba(0, 240, 255, 0.2);
+    --meta-chips-heading-fg: var(--color-light-purple);
+    --meta-chip-icon-fg: #1a0b2e;
+    --meta-chip-icon-hover-bg: #00f0ff;
+    --meta-chip-icon-bg: var(--color-magenta);
+    --meta-chip-name-fg: #e0d6ff;
+    --meta-chip-value-fg: var(--color-light-purple);
+    --meta-chip-value-hover-fg: #00f0ff;
+    --meta-chip-backdrop-filter-hover: brightness(0.4) blur(15px) saturate(1.5);
+    --meta-chip-hover-bg: rgba(255, 46, 151, 0.1);
+
+    /* --- Form Controls: Text Input --- */
+    --input-text-border: 1px solid rgba(0, 240, 255, 0.2);
+    --input-text-border-active: 2px solid #00f0ff;
+    --input-text-border-error: 1px solid #ff3860;
+    --input-text-border-hover: 2px solid var(--color-magenta);
+    --input-text-border-radius: 8px;
+    --input-text-fg: var(--text-color);
+    --input-text-padding: 12px;
+    --input-text-padding-active: 11px;
+    --input-text-padding-hover: 11px;
+
+    /* --- Form Controls: Select --- */
+    --select-border: 1px solid rgba(0, 240, 255, 0.2);
+    --select-border-active: 2px solid #00f0ff;
+    --select-border-error: 1px solid #ff3860;
+    --select-border-hover: 2px solid var(--color-magenta);
+    --select-border-radius: 8px;
+    --select-fg: var(--text-color);
+    --select-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%2300f0ff' d='M6 8l-1 1l5 5l5-5l-1-1l-4 4l-4-4z'/></svg>");
+    --select-padding: 11px 23px 11px 11px;
+    --select-padding-active: 10px 22px 10px 10px;
+    --select-padding-hover: 10px 22px 10px 10px;
+
+    /* --- Form Controls: Textarea --- */
+    --textarea-border: 1px solid rgba(0, 240, 255, 0.2);
+    --textarea-border-active: 2px solid #00f0ff;
+    --textarea-border-error: 1px solid #ff3860;
+    --textarea-border-hover: 2px solid var(--color-magenta);
+    --textarea-border-radius: 8px;
+    --textarea-fg: var(--text-color);
+    --textarea-padding: 12px;
+    --textarea-padding-active: 11px;
+    --textarea-padding-hover: 11px;
+
+    /* --- Form Controls: Fieldset/Label/Legend --- */
+    --fieldset-bg: inherit;
+    --fieldset-fg: var(--text-color);
+    --fieldset-border-radius: 8px;
+    --fieldset-border: 1px solid rgba(0, 240, 255, 0.12);
+    --label-bg: rgba(0, 240, 255, 0.1);
+    --label-fg: var(--color-light-blue);
+    --label-fg-active: #00f0ff;
+    --label-fg-error: #ff3860;
+    --label-fg-hover: var(--color-magenta);
+    --legend-fg: var(--color-light-purple);
+    --legend-bg: transparent;
+    --legend-border: none;
+    --legend-border-radius: 0;
+
+    /* --- Dialogs (Modals) --- */
+    --dialog-bg: #1a0b2e;
+    --dialog-border: 1px solid rgba(255, 46, 151, 0.2);
+    --dialog-border-radius: 12px;
+    --dialog-box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 46, 151, 0.12);
+    --dialog-fg: var(--text-color);
+    --dialog-head-bg: #260a3f;
+    --dialog-head-fg: #00f0ff;
+
+    /* --- Quick Search --- */
+    --quick-search-bg: #1a0b2e;
+    --quick-search-fg: var(--text-color);
+    --quick-search-border: 1px solid rgba(0, 240, 255, 0.2);
+    --quick-search-border-radius: 20px;
+    --quick-search-box-shadow: 0 0 20px rgba(0, 240, 255, 0.1), 0 4px 10px rgba(0, 0, 0, 0.3);
+    --quick-search-selector-fg: var(--color-light-purple);
+    --quick-search-selector-hover-bg: rgba(255, 46, 151, 0.1);
+    --quick-search-selector-hover-fg: #00f0ff;
+    --quick-search-selector-selected-bg: rgba(0, 240, 255, 0.15);
+    --quick-search-selector-selected-fg: #00f0ff;
+    --quick-search-result-bg: #260a3f;
+    --quick-search-result-fg: var(--text-color);
+    --quick-search-result-hover-bg: rgba(255, 46, 151, 0.08);
+    --quick-search-result-hover-fg: #00f0ff;
+    --quick-search-result-image-border-radius: 8px;
+    --quick-search-result-year-fg: var(--color-light-purple);
+    --quick-search-result-border: 1px solid rgba(0, 240, 255, 0.06);
+
+    /* --- Breadcrumbs --- */
+    --breadcrumb-fg: var(--color-light-purple);
+    --breadcrumb-active-fg: #00f0ff;
+    --breadcrumb-hover-fg: var(--color-light-magenta);
+    --breadcrumb-inactive-text-decoration: none;
+
+    /* --- Key-Value Display --- */
+    --key-value-even-bg: #16092a;
+    --key-value-odd-bg: #1a0b2e;
+    --key-value-fg: var(--text-color);
+    --key-value-padding: 10px;
+
+    /* --- Alerts --- */
+    --alert-bg: #260a3f;
+    --alert-fg: var(--text-color);
+    --alert-gap-color: rgba(0, 240, 255, 0.1);
+    --alert-gap-width: 1px;
+
+    /* --- Article Cards --- */
+    --article-card-bg: #1a0b2e;
+    --article-card-fg: var(--text-color);
+    --article-card-head-fg: #00f0ff;
+    --article-card-time-fg: var(--color-light-purple);
+    --article-box-shadow: 0 0 15px rgba(255, 46, 151, 0.06), 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    /* --- Achievements --- */
+    --achievement-fg: var(--text-color);
+    --achievement-bg: #1a0b2e;
+    --achievement-box-shadow: 0 0 15px rgba(0, 240, 255, 0.08), 0 2px 8px rgba(0, 0, 0, 0.3);
+    --achievement-progress-bg: #00f0ff;
+
+    /* --- MediaHub Cards --- */
+    --mediahub-card-bg: #1a0b2e;
+    --mediahub-card-fg: var(--text-color);
+    --mediahub-card-hover-fg: #00f0ff;
+    --mediahub-card-border: 1px solid rgba(255, 46, 151, 0.08);
+    --mediahub-card-border-radius: 10px;
+    --mediahub-card-box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+
+    /* --- Playlist Cards --- */
+    --playlist-card-bg: #1a0b2e;
+    --playlist-card-border: 1px solid rgba(0, 240, 255, 0.08);
+    --playlist-card-border-radius: 10px;
+    --playlist-card-box-shadow: 0 0 15px rgba(255, 46, 151, 0.06), 0 4px 10px rgba(0, 0, 0, 0.3);
+    --playlist-card-fg: var(--text-color);
+    --playlist-card-missing-image-bg: #260a3f;
+    --playlist-card-missing-image-fg: var(--color-light-purple);
+
+    /* --- User Stat Cards --- */
+    --user-stat-card-bg: #1a0b2e;
+    --user-stat-card-fg: var(--text-color);
+    --user-stat-card-border: 1px solid rgba(255, 46, 151, 0.08);
+    --user-stat-card-border-radius: 10px;
+    --user-stat-card-box-shadow: 0 0 12px rgba(0, 240, 255, 0.06);
+
+    /* --- Prizes --- */
+    --prize-bg: #1a0b2e;
+    --prize-border-radius: 12px;
+    --prize-border: 1px solid rgba(255, 46, 151, 0.1);
+    --prize-box-shadow: 0 0 20px rgba(255, 46, 151, 0.08), 0 4px 10px rgba(0, 0, 0, 0.3);
+    --prize-fg: var(--text-color);
+    --prize-heading-fg: #00f0ff;
+    --prize-icon-primary-color: #00f0ff;
+    --prize-icon-secondary-color: #ff2e97;
+
+    /* --- Donations --- */
+    --donation-border-color: rgba(255, 46, 151, 0.15);
+    --donation-box-shadow-color: rgba(0, 240, 255, 0.08);
+    --donation-primary-text-color: #e0d6ff;
+    --donation-secondary-text-color: #9d8ec7;
+    --donation-background-color: #1a0b2e;
+    --donation-price-days-color: #ffae00;
+    --donation-chart-daily-bg: rgba(0, 255, 159, 0.15);
+    --donation-chart-daily-border: rgba(0, 255, 159, 0.8);
+    --donation-chart-monthly-bg: rgba(255, 46, 151, 0.15);
+    --donation-chart-monthly-border: rgba(255, 46, 151, 0.8);
+
+    /* --- Comparison --- */
+    --comparison-divider-fg: #00f0ff;
+    --comparison-button-fg: #ffffff;
+
+    /* --- Subforum Listings --- */
+    --subforum-listing-odd-bg: #1a0b2e;
+    --subforum-listing-even-bg: #16092a;
+    --subforum-listing-border: 1px solid rgba(0, 240, 255, 0.06);
+
+    /* --- Pagination --- */
+    --paginate-bg: #1a0b2e;
+    --paginate-bg-hover: rgba(255, 46, 151, 0.1);
+    --paginate-bg-current: rgba(0, 240, 255, 0.15);
+    --paginate-fg: var(--color-light-purple);
+    --paginate-fg-disabled: #4a3b6e;
+    --paginate-divider: rgba(0, 240, 255, 0.08);
+
+    /* --- Notifications --- */
+    --notification-read: transparent;
+    --notification-unread: var(--color-magenta);
+
+    /* --- Options --- */
+    --option-bg: #260a3f;
+    --option-fg: var(--text-color);
+
+    /* --- Meter --- */
+    --meter-fg: #260a3f;
+    --meter-bg: var(--color-blue);
+
+    /* --- Footer --- */
+    --footer-bg: rgba(13, 2, 33, 0.9);
+    --footer-hr-fg: rgba(255, 46, 151, 0.15);
+
+    /* --- Scrollbar --- */
+    --scrollbar-color: rgba(0, 240, 255, 0.3);
+}
+
+/* ============================================================================
+ * 2. BODY / BACKGROUND — Synthwave perspective grid
+ * ========================================================================== */
+
+body {
+    background: #0d0221
+        url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27512%27%20height%3D%27512%27%20viewBox%3D%270%200%20512%20512%27%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3CradialGradient%20id%3D%27g%27%20cx%3D%2750%25%27%20cy%3D%270%25%27%20r%3D%27100%25%27%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%232d0a4e%27%20stop-opacity%3D%270.5%27%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%2760%25%27%20stop-color%3D%27%230d0221%27%20stop-opacity%3D%270%27%2F%3E%0A%20%20%20%20%3C%2FradialGradient%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%27glow%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%270%27%20y2%3D%271%27%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23ff2e97%27%20stop-opacity%3D%270%27%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23ff2e97%27%20stop-opacity%3D%270.08%27%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%27512%27%20height%3D%27512%27%20fill%3D%27url%28%23g%29%27%2F%3E%0A%20%20%3Crect%20width%3D%27512%27%20height%3D%27512%27%20fill%3D%27url%28%23glow%29%27%2F%3E%0A%20%20%3Cg%20stroke%3D%27%23ff2e97%27%20stroke-opacity%3D%270.05%27%20fill%3D%27none%27%20stroke-width%3D%271%27%3E%0A%20%20%20%20%3Cline%20x1%3D%270%27%20y1%3D%27128%27%20x2%3D%27512%27%20y2%3D%27128%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%270%27%20y1%3D%27256%27%20x2%3D%27512%27%20y2%3D%27256%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%270%27%20y1%3D%27384%27%20x2%3D%27512%27%20y2%3D%27384%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%27128%27%20y1%3D%270%27%20x2%3D%27128%27%20y2%3D%27512%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%27256%27%20y1%3D%270%27%20x2%3D%27256%27%20y2%3D%27512%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%27384%27%20y1%3D%270%27%20x2%3D%27384%27%20y2%3D%27512%27%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cg%20stroke%3D%27%2300f0ff%27%20stroke-opacity%3D%270.03%27%20fill%3D%27none%27%20stroke-width%3D%271%27%3E%0A%20%20%20%20%3Cline%20x1%3D%270%27%20y1%3D%2764%27%20x2%3D%27512%27%20y2%3D%2764%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%270%27%20y1%3D%27192%27%20x2%3D%27512%27%20y2%3D%27192%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%270%27%20y1%3D%27320%27%20x2%3D%27512%27%20y2%3D%27320%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%270%27%20y1%3D%27448%27%20x2%3D%27512%27%20y2%3D%27448%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2764%27%20y1%3D%270%27%20x2%3D%2764%27%20y2%3D%27512%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%27192%27%20y1%3D%270%27%20x2%3D%27192%27%20y2%3D%27512%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%27320%27%20y1%3D%270%27%20x2%3D%27320%27%20y2%3D%27512%27%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%27448%27%20y1%3D%270%27%20x2%3D%27448%27%20y2%3D%27512%27%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E');
+    background-size: 512px auto;
+    background-attachment: fixed;
+}
+
+/* ============================================================================
+ * 3. SELECTOR OVERRIDES — Neon glow effects
+ * ========================================================================== */
+
+/* Text color helpers */
+.text-bright { color: #ffffff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.5); }
+a.text-bright:focus, a.text-bright:hover { color: #00f0ff; }
+.text-blue { color: var(--color-blue); }
+.text-purple { color: var(--color-light-purple); }
+.text-green { color: var(--color-light-green); }
+.text-muted { color: #9d8ec7; }
+.text-red { color: var(--color-light-red); }
+.text-orange { color: var(--color-light-orange); }
+.text-pink { color: var(--color-light-magenta); }
+.text-danger { color: #ff3860; }
+
+/* Links with subtle glow */
+a { color: var(--color-blue); text-decoration: none; }
+a:hover {
+    color: var(--color-light-blue);
+    text-shadow: 0 0 6px rgba(0, 240, 255, 0.4);
+}
+
+/* User badges — neon hexagon vibe */
+.badge-user {
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    box-shadow: 0 0 8px rgba(255, 46, 151, 0.15);
+    background-color: #260a3f;
+    text-shadow: 0 0 4px rgba(0, 240, 255, 0.3);
+}
+
+/* Footer icon */
+.footer__icon { color: var(--color-magenta); }
+
+/* Panel header glow */
+.panel__head {
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+}
+
+/* Chatbox frame */
+#frame { background: #16092a; }
+#frame .content .messages ul li {
+    border-bottom: 1px dashed rgba(0, 240, 255, 0.08);
+}
+.chatbox .typing { color: var(--color-light-green); }
+
+/* Chatbox sent messages — neon bubble */
+.sent > h4 {
+    background-color: var(--message-bubble-bg) !important;
+    border: 1px solid rgba(255, 46, 151, 0.15) !important;
+    box-shadow: 0 0 10px rgba(255, 46, 151, 0.08) !important;
+}
+.sent > div {
+    background-color: var(--message-bubble-bg) !important;
+    border: 1px solid rgba(0, 240, 255, 0.1) !important;
+}
+
+/* Special event alert (freeleech bar) — neon glow */
+.special-event-alert {
+    padding: 5px;
+    border: 1px solid rgba(255, 174, 0, 0.3);
+    box-shadow: 0 0 15px rgba(255, 174, 0, 0.1);
+}
+.special-event-alert > .alert__content {
+    width: 75%;
+    display: flex;
+    justify-content: space-around;
+}
+@media screen and (max-width: 512px) {
+    .special-event-alert > .alert__content { width: 98%; }
+}
+
+/* Compact chat bubbles */
+.chatbox-message__content > div > br:nth-of-type(n+2) {
+    display: none;
+}
+.chatbox-message__content {
+    font-size: 14px;
+    padding: 0 8px 4px 8px;
+}
+.chatbox-message__address {
+    font-size: 12px;
+    color: var(--color-light-purple);
+}
+.chatroom__messages {
+    gap: 6px;
+}
+
+/* Code blocks */
+.bbcode-rendered__code-block,
+.bbcode-rendered pre {
+    background: #0d0221 !important;
+    border: 1px solid rgba(0, 240, 255, 0.15) !important;
+    border-radius: 8px;
+}
+
+/* Custom scrollbar styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 240, 255, 0.3) rgba(13, 2, 33, 0.5);
+}
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+*::-webkit-scrollbar-track {
+    background: rgba(13, 2, 33, 0.5);
+}
+*::-webkit-scrollbar-thumb {
+    background: rgba(0, 240, 255, 0.2);
+    border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 46, 151, 0.4);
+}
+
+/* Selection color */
+::selection {
+    background: rgba(255, 46, 151, 0.3);
+    color: #ffffff;
+}
+
+/* ============================================================================
+ * 4. CUSTOM SVG ICONS — Cyber/geometric replacements
+ * ========================================================================== */
+
+/* --- Icon sizes by context --- */
+
+/* User Profile: 22px */
+.userprofile__banner .fa-user::before,
+.userprofile__banner .fa-user-plus::before,
+.userprofile__banner .fa-user-tag::before,
+.userprofile__banner .fa-user-tie::before,
+.userprofile__banner .fa-user-graduate::before,
+.userprofile__banner .fa-user-md::before,
+.userprofile__banner .fa-user-secret::before,
+.userprofile__banner .fa-user-astronaut::before,
+.userprofile__banner .fa-angle-up::before,
+.userprofile__banner .fa-angles-up::before,
+.userprofile__banner .fa-shield::before,
+.userprofile__banner .fa-edit::before,
+.userprofile__banner .fa-magic::before,
+.userprofile__banner .fa-balance-scale::before,
+.userprofile__banner .fa-terminal::before,
+.userprofile__banner .fa-user-cog::before,
+.userprofile__banner .fa-fire::before,
+.userprofile__banner .fa-crown::before,
+.userprofile__banner .fa-paint-brush::before,
+.userprofile__banner .user-tag__link.fa-life-ring::before {
+    width: 22px;
+    height: 22px;
+}
+
+/* Header / Top 8: 18px */
+.top-nav .fa-user::before,
+.top-nav .fa-user-plus::before,
+.top-nav .fa-user-tag::before,
+.top-nav .fa-user-tie::before,
+.top-nav .fa-user-graduate::before,
+.top-nav .fa-user-md::before,
+.top-nav .fa-user-secret::before,
+.top-nav .fa-user-astronaut::before,
+.top-nav .fa-angle-up::before,
+.top-nav .fa-angles-up::before,
+.top-nav .fa-shield::before,
+.top-nav .fa-edit::before,
+.top-nav .fa-magic::before,
+.top-nav .fa-balance-scale::before,
+.top-nav .fa-terminal::before,
+.top-nav .fa-user-cog::before,
+.top-nav .fa-fire::before,
+.top-nav .fa-crown::before,
+.top-nav .fa-life-ring::before,
+.top-nav .fa-paint-brush::before,
+.user-stat-card .fa-user::before,
+.user-stat-card .fa-user-plus::before,
+.user-stat-card .fa-user-tag::before,
+.user-stat-card .fa-user-tie::before,
+.user-stat-card .fa-user-graduate::before,
+.user-stat-card .fa-user-md::before,
+.user-stat-card .fa-user-secret::before,
+.user-stat-card .fa-user-astronaut::before,
+.user-stat-card .fa-angle-up::before,
+.user-stat-card .fa-angles-up::before,
+.user-stat-card .fa-shield::before,
+.user-stat-card .fa-edit::before,
+.user-stat-card .fa-magic::before,
+.user-stat-card .fa-balance-scale::before,
+.user-stat-card .fa-terminal::before,
+.user-stat-card .fa-user-cog::before,
+.user-stat-card .fa-fire::before,
+.user-stat-card .fa-crown::before,
+.user-stat-card .fa-life-ring::before,
+.user-stat-card .fa-paint-brush::before {
+    width: 18px;
+    height: 18px;
+}
+
+/* Default: 15px */
+.fa-user::before,
+.fa-user-plus::before,
+.fa-user-tag::before,
+.fa-user-tie::before,
+.fa-user-graduate::before,
+.fa-user-md::before,
+.fa-user-secret::before,
+.fa-user-astronaut::before,
+.fa-angle-up::before,
+.fa-angles-up::before,
+.fa-shield::before,
+.fa-edit::before,
+.fa-magic::before,
+.fa-balance-scale::before,
+.fa-terminal::before,
+.fa-user-cog::before,
+.fa-fire::before,
+.fa-crown::before,
+.fa-paint-brush::before,
+.user-tag__link.fa-life-ring::before {
+    width: 15px;
+    height: 15px;
+}
+
+/* --- Custom SVG icon replacements --- */
+
+/* User: Hexagonal cyber-frame avatar */
+.fa-user::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Cpath%20d%3D%27M75%208%20L132%2041%20L132%20109%20L75%20142%20L18%20109%20L18%2041%20Z%27%20fill%3D%27%2300f0ff%27%20fill-opacity%3D%270.12%27%20stroke%3D%27%2300f0ff%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2775%27%20cy%3D%2756%27%20r%3D%2722%27%20fill%3D%27%2300f0ff%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M38%20135%20Q75%2088%20112%20135%20Z%27%20fill%3D%27%2300f0ff%27%2F%3E%0A%3C%2Fsvg%3E');
+}
+
+/* User-Plus: Hex frame with neon plus */
+.fa-user-plus::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Cpath%20d%3D%27M75%208%20L132%2041%20L132%20109%20L75%20142%20L18%20109%20L18%2041%20Z%27%20fill%3D%27%2300f0ff%27%20fill-opacity%3D%270.12%27%20stroke%3D%27%2300f0ff%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2765%27%20cy%3D%2751%27%20r%3D%2720%27%20fill%3D%27%2300f0ff%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M30%20128%20Q65%2085%20100%20128%20Z%27%20fill%3D%27%2300f0ff%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M115%2035%20L115%2060%20M102%2047%20L128%2047%27%20stroke%3D%27%23ff2e97%27%20stroke-width%3D%276%27%20stroke-linecap%3D%27round%27%20fill%3D%27none%27%2F%3E%0A%3C%2Fsvg%3E');
+}
+
+/* Shield: Circuit-node shield */
+.fa-shield::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Cpath%20d%3D%27M75%206%20L128%2030%20L128%2082%20Q128%20120%2075%20144%20Q22%20120%2022%2082%20L22%2030%20Z%27%20fill%3D%27%23ff2e97%27%20fill-opacity%3D%270.1%27%20stroke%3D%27%23ff2e97%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M75%2040%20L75%20100%20M50%2070%20L100%2070%27%20stroke%3D%27%23ff2e97%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27%20fill%3D%27none%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2775%27%20cy%3D%2770%27%20r%3D%278%27%20fill%3D%27%23ff2e97%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2775%27%20cy%3D%2740%27%20r%3D%275%27%20fill%3D%27%2300f0ff%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2775%27%20cy%3D%27100%27%20r%3D%275%27%20fill%3D%27%2300f0ff%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2750%27%20cy%3D%2770%27%20r%3D%275%27%20fill%3D%27%2300f0ff%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%27100%27%20cy%3D%2770%27%20r%3D%275%27%20fill%3D%27%2300f0ff%27%2F%3E%0A%3C%2Fsvg%3E');
+}
+
+/* Fire: Angular geometric flame */
+.fa-fire::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Cpath%20d%3D%27M75%204%20L95%2034%20L120%2044%20L105%2070%20L130%2085%20L95%2095%20L105%20130%20L75%20115%20L45%20130%20L55%2095%20L20%2085%20L45%2070%20L30%2044%20L55%2034%20Z%27%20fill%3D%27%23ff6b00%27%20fill-opacity%3D%270.3%27%20stroke%3D%27%23ff6b00%27%20stroke-width%3D%272%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M75%2030%20L88%2050%20L100%2055%20L90%2072%20L75%2080%20L60%2072%20L50%2055%20L62%2050%20Z%27%20fill%3D%27%23ffae00%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M75%2050%20L82%2062%20L88%2065%20L82%2074%20L75%2078%20L68%2074%20L62%2065%20L68%2062%20Z%27%20fill%3D%27%23ff2e97%27%2F%3E%0A%3C%2Fsvg%3E');
+}
+
+/* Crown: Geometric crown with neon gems */
+.fa-crown::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Cpath%20d%3D%27M20%20110%20L30%2040%20L55%2075%20L75%2030%20L95%2075%20L120%2040%20L130%20110%20Z%27%20fill%3D%27%23ff2e97%27%20fill-opacity%3D%270.15%27%20stroke%3D%27%23ff2e97%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Crect%20x%3D%2720%27%20y%3D%27110%27%20width%3D%27110%27%20height%3D%2718%27%20fill%3D%27%23ff2e97%27%20fill-opacity%3D%270.2%27%20stroke%3D%27%23ff2e97%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2730%27%20cy%3D%2740%27%20r%3D%276%27%20fill%3D%27%2300f0ff%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2775%27%20cy%3D%2730%27%20r%3D%277%27%20fill%3D%27%23ffae00%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%27120%27%20cy%3D%2740%27%20r%3D%276%27%20fill%3D%27%2300f0ff%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2755%27%20cy%3D%2775%27%20r%3D%275%27%20fill%3D%27%23ff2e97%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2795%27%20cy%3D%2775%27%20r%3D%275%27%20fill%3D%27%23ff2e97%27%2F%3E%0A%3C%2Fsvg%3E');
+}
+
+/* Terminal: Terminal window with >_ prompt */
+.fa-terminal::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Crect%20x%3D%2712%27%20y%3D%2725%27%20width%3D%27126%27%20height%3D%27100%27%20rx%3D%278%27%20fill%3D%27%230d0221%27%20stroke%3D%27%2300f0ff%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Crect%20x%3D%2712%27%20y%3D%2725%27%20width%3D%27126%27%20height%3D%2720%27%20rx%3D%278%27%20fill%3D%27%2300f0ff%27%20fill-opacity%3D%270.15%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2728%27%20cy%3D%2735%27%20r%3D%274%27%20fill%3D%27%23ff2e97%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2742%27%20cy%3D%2735%27%20r%3D%274%27%20fill%3D%27%23ffae00%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2756%27%20cy%3D%2735%27%20r%3D%274%27%20fill%3D%27%2300ff9f%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M30%2065%20L48%2080%20L30%2095%27%20stroke%3D%27%2300ff9f%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20fill%3D%27none%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M60%2095%20L95%2095%27%20stroke%3D%27%2300f0ff%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%20fill%3D%27none%27%2F%3E%0A%3C%2Fsvg%3E');
+}
