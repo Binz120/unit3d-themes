@@ -1,0 +1,1064 @@
+/* ============================================================================
+ * CYBERFUNK — UNIT3D custom theme
+ *
+ * Cyberpunk bones, funk blood: aubergine ink, acid lime for the numbers that
+ * climb, hot magenta for the things that want your eye, electric cyan for
+ * anything you can click, amber for the one warning worth reading. Panels are
+ * lit from above with a hairline, the floor is a perspective grid, and every
+ * unit of colour is spent on a job rather than for decoration.
+ *
+ * Deploy: host this file publicly and paste the URL (or its contents) into
+ * UNIT3D → Settings → custom_css. No build step, no dependencies.
+ * Best with: Galactic (style 1) or Material Dark (style 13) as the base.
+ ========================================================================== */
+
+/* ============================================================================
+ * 0. DESIGN TOKENS
+ *
+ * The palette is Cyberfunk: aubergine ink, acid lime for anything counting up,
+ * hot magenta for anything that wants attention, electric cyan for anything you
+ * can click, amber for the one warning you should read. Everything below maps
+ * UNIT3D's variables onto these ten tokens, so retuning the theme means editing
+ * this block and nothing else.
+ * ========================================================================== */
+
+:root {
+    /* Surfaces, darkest to lightest */
+    --cf-ink: #0a0418;          /* page */
+    --cf-ink-2: #120826;        /* nav, footer */
+    --cf-sunk: #140826;         /* inset wells, code, tables */
+    --cf-panel: #1a0b2e;        /* panels, cards */
+    --cf-panel-head: #241040;   /* panel and card headers */
+    --cf-raised: #2b0f4a;       /* bubbles, menus, raised chips */
+
+    /* Hairlines */
+    --cf-line: rgba(255, 255, 255, 0.07);
+    --cf-line-cool: rgba(58, 228, 255, 0.16);
+    --cf-line-hot: rgba(255, 46, 151, 0.22);
+
+    /* Text */
+    --cf-text: #ece5ff;
+    --cf-text-bright: #ffffff;
+    --cf-muted: #a79ad4;
+    --cf-dim: #6f5f9b;
+
+    /* Accents, by job */
+    --cf-cyan: #3ae4ff;         /* links, focus, selection */
+    --cf-cyan-rgb: 58, 228, 255;
+    --cf-magenta: #ff2e97;      /* attention, active, featured */
+    --cf-magenta-rgb: 255, 46, 151;
+    --cf-lime: #b4ff3f;         /* positive, counts, seeders */
+    --cf-lime-rgb: 180, 255, 63;
+    --cf-amber: #ffb020;        /* warnings, freeleech */
+    --cf-amber-rgb: 255, 176, 32;
+    --cf-red: #ff4d6d;          /* errors, deletions */
+    --cf-red-rgb: 255, 77, 109;
+    --cf-orange: #ff7a1a;
+    --cf-lilac: #c9a2ff;
+
+    /* Shape and depth */
+    --cf-radius: 12px;
+    --cf-radius-sm: 8px;
+    --cf-ring: 0 0 0 3px rgba(var(--cf-cyan-rgb), 0.22);
+    --cf-shadow: 0 24px 48px -28px #000, 0 2px 8px -2px rgba(0, 0, 0, 0.6);
+    --cf-glow-cyan: 0 0 18px rgba(var(--cf-cyan-rgb), 0.16);
+    --cf-glow-magenta: 0 0 18px rgba(var(--cf-magenta-rgb), 0.18);
+
+    --cf-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+    --cf-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+/* ============================================================================
+ * 1. UNIT3D VARIABLE MAP
+ *
+ * Every variable UNIT3D's stylesheets read, pointed at the tokens above. If a
+ * fork adds a variable this file does not set, it falls back to the base
+ * theme's value, which is why the theme still works on a dark base it has
+ * never seen.
+ * ========================================================================== */
+
+:root {
+    /* --- Base colour palette (Cyberfunk) --- */
+    --text-color: var(--cf-text);
+    --color-dark-magenta: hsl(300, 60%, 12%);
+    --color-dark-green: hsl(160, 60%, 12%);
+    --color-dark-blue: hsl(220, 60%, 15%);
+    --color-dark-red: hsl(345, 60%, 12%);
+    --color-dark-purple: hsl(270, 50%, 15%);
+    --color-red: hsl(345, 100%, 55%);
+    --color-light-red: hsl(345, 100%, 65%);
+    --color-green: hsl(84, 100%, 44%);
+    --color-light-green: hsl(84, 100%, 62%);
+    --color-yellow: hsl(38, 100%, 56%);
+    --color-light-yellow: hsl(38, 100%, 66%);
+    --color-magenta: hsl(330, 100%, 55%);
+    --color-light-magenta: hsl(330, 100%, 65%);
+    --color-purple: hsl(270, 80%, 55%);
+    --color-light-purple: hsl(270, 80%, 65%);
+    --color-blue: hsl(192, 100%, 62%);
+    --color-light-blue: hsl(192, 100%, 72%);
+    --color-bright-white: hsl(270, 20%, 100%);
+    --color-light-orange: hsl(25, 100%, 55%);
+
+    /* --- Body --- */
+    --body-bg: var(--cf-ink);
+    --body-fg: var(--text-color);
+
+    /* --- Links --- */
+    --color-links-colored: var(--cf-cyan);
+    --color-links-hover: #8af0ff;
+    --codeblock-background: var(--cf-panel);
+
+    /* --- Buttons (neon pill style) --- */
+    --button-filled-bg: var(--color-magenta);
+    --button-filled-border: none;
+    --button-filled-border-radius: 9999px;
+    --button-filled-fg: white;
+    --button-outlined-bg: inherit;
+    --button-outlined-border: 1px solid var(--color-blue);
+    --button-outlined-border-radius: 9999px;
+    --button-outlined-fg: var(--color-blue);
+    --button-text-bg: inherit;
+    --button-text-border: none;
+    --button-text-border-radius: 5px;
+    --button-text-fg: currentColor;
+
+    /* --- Icon Buttons --- */
+    --icon-button-bg: inherit;
+    --icon-button-border: none;
+    --icon-button-border-radius: 9999px;
+    --icon-button-fg: currentColor;
+    --icon-button-filled-bg: var(--color-magenta);
+    --icon-button-filled-border: none;
+    --icon-button-filled-fg: white;
+
+    /* --- Panels (glowing dark purple) --- */
+    --panel-bg: var(--cf-panel);
+    --panel-fg: var(--text-color);
+    --panel-border: 1px solid var(--cf-line);
+    --panel-border-radius: var(--cf-radius);
+    --panel-box-shadow: var(--cf-shadow);
+    --panel-head-bg: var(--cf-panel-head);
+    --panel-head-fg: var(--cf-cyan);
+    --panel-action-fg: var(--color-light-purple);
+
+    /* --- Top Navigation (deep purple with neon underline) --- */
+    --top-nav-bg: var(--cf-ink-2);
+    --top-nav-box-shadow: none;
+    --top-nav-dropdown-fg: var(--text-color);
+    --top-nav-dropdown-hover-fg: var(--cf-cyan);
+    --top-nav-dropdown-hover-bg: rgba(255, 46, 151, 0.12);
+    --top-nav-dropdown-hover-text-decoration: none;
+    --top-nav-dropdown-menu-bg: var(--cf-panel);
+    --top-nav-dropdown-menu-border: 1px solid rgba(var(--cf-cyan-rgb), 0.2);
+    --top-nav-dropdown-menu-border-radius: 10px;
+    --top-nav-dropdown-menu-box-shadow: 0 0 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 46, 151, 0.1);
+    --top-nav-dropdown-menu-item-fg: var(--text-color);
+    --top-nav-dropdown-menu-item-bg: transparent;
+    --top-nav-dropdown-menu-item-hover-fg: var(--cf-cyan);
+    --top-nav-dropdown-menu-item-hover-bg: rgba(var(--cf-cyan-rgb), 0.08);
+    --top-nav-dropdown-menu-item-hover-text-decoration: none;
+    --top-nav-dropdown-menu-item-icon-fg: var(--color-magenta);
+    --top-nav-dropdown-menu-item-icon-bg: rgba(255, 46, 151, 0.1);
+    --top-nav-ratio-bar-fg: var(--color-light-green);
+    --top-nav-icon-bar-icon-bg: rgba(var(--cf-cyan-rgb), 0.1);
+    --top-nav-icon-bar-icon-fg: var(--color-blue);
+    --top-nav-icon-bar-icon-border-radius: 50%;
+    --top-nav-icon-bar-icon-hover-bg: rgba(var(--cf-cyan-rgb), 0.2);
+    --top-nav-icon-bar-icon-hover-fg: var(--color-light-blue);
+    --top-nav-stats-fg: var(--color-light-purple);
+    --top-nav-toggle-fg: var(--color-blue);
+
+    /* --- Secondary Navigation --- */
+    --secondary-nav-bg: var(--cf-panel);
+    --secondary-nav-tab-fg: var(--color-light-purple);
+    --secondary-nav-tab-bg: inherit;
+    --secondary-nav-tab-active-text-decoration: underline var(--color-magenta) 2px;
+    --secondary-nav-tab-hover-fg: var(--cf-cyan);
+    --secondary-nav-tab-hover-bg: transparent;
+    --secondary-nav-tab-hover-text-decoration: underline var(--color-blue) 2px;
+    --secondary-nav-tab-menu-bg: var(--cf-panel);
+    --secondary-nav-tab-menu-fg: var(--text-color);
+    --secondary-nav-tab-menu-border: 1px solid rgba(var(--cf-cyan-rgb), 0.15);
+    --secondary-nav-tab-menu-border-radius: 8px;
+    --secondary-nav-tab-menu-box-shadow: 0 0 20px rgba(0, 0, 0, 0.4), 0 0 10px rgba(255, 46, 151, 0.08);
+
+    /* --- Data Tables --- */
+    --data-table-fg: var(--text-color);
+    --data-table-th-bg: var(--cf-panel-head);
+    --data-table-thead-border: none;
+    --data-table-tr-border: 1px solid rgba(var(--cf-cyan-rgb), 0.08);
+    --data-table-tr-even-bg: var(--cf-sunk);
+    --data-table-tr-hover-bg: rgba(255, 46, 151, 0.06);
+    --data-table-tr-odd-bg: var(--cf-panel);
+    --data-table-tfoot-border: none;
+
+    /* --- Torrent Rows (neon status colors) --- */
+    --torrent-row-fg: var(--text-color);
+    --torrent-row-visited-fg: var(--cf-lilac);
+    --torrent-row-sticky-bg: rgba(255, 46, 151, 0.08);
+    --torrent-row-sticky-fg: var(--color-light-magenta);
+    --torrent-row-format-fg: var(--color-light-blue);
+    --torrent-row-format-bg: rgba(var(--cf-cyan-rgb), 0.08);
+    --torrent-row-buttons-fg: var(--color-light-purple);
+    --torrent-row-seeders-fg: var(--cf-lime);
+    --torrent-row-leechers-fg: var(--cf-red);
+    --torrent-row-completed-fg: var(--cf-cyan);
+    --torrent-row-thanks-fg: var(--cf-lilac);
+    --torrent-row-comments-fg: var(--cf-lime);
+    --torrent-row-internal-fg: var(--cf-magenta);
+    --torrent-row-personal-fg: var(--cf-lilac);
+    --torrent-row-stream-optimized-fg: var(--cf-cyan);
+    --torrent-row-featured-fg: var(--cf-magenta);
+    --torrent-row-freeleech-fg: var(--cf-amber);
+    --torrent-row-double-upload-fg: var(--cf-lime);
+    --torrent-row-highspeed-fg: var(--cf-orange);
+    --torrent-row-sd-fg: var(--cf-orange);
+    --torrent-row-bumped-fg: var(--cf-amber);
+
+    /* --- Torrent Tags --- */
+    --torrent-tag-fg: var(--color-light-blue);
+    --torrent-tag-bg: rgba(var(--cf-cyan-rgb), 0.06);
+    --torrent-tag-hover-fg: #ffffff;
+    --torrent-tag-hover-bg: rgba(var(--cf-cyan-rgb), 0.15);
+
+    /* --- Torrent Cards --- */
+    --torrent-card-bg: var(--cf-panel);
+    --torrent-card-fg: var(--text-color);
+    --torrent-card-border: 1px solid rgba(255, 46, 151, 0.1);
+    --torrent-card-head-bg: var(--cf-panel-head);
+    --torrent-card-head-fg: var(--cf-cyan);
+    --torrent-card-link-fg: var(--color-blue);
+    --torrent-card-genre-fg: var(--color-light-purple);
+
+    /* --- Torrent Groups --- */
+    --torrent-group-bg: var(--cf-sunk);
+    --torrent-group-header-bg: var(--cf-panel-head);
+    --torrent-group-text: var(--cf-text);
+    --torrent-group-text-muted: var(--cf-muted);
+    --torrent-group-table-stripe-even: rgba(255, 46, 151, 0.02);
+    --torrent-group-table-stripe-odd: rgba(var(--cf-cyan-rgb), 0.02);
+    --torrent-group-hover-brightness-emphasis: 1.3;
+    --torrent-group-chip-border: rgba(var(--cf-cyan-rgb), 0.1);
+
+    /* --- BBCode Input (Editor) --- */
+    --bbcode-input-header-bg: var(--cf-panel-head);
+    --bbcode-input-body-bg: var(--cf-sunk);
+    --bbcode-input-border: 1px solid rgba(var(--cf-cyan-rgb), 0.15);
+    --bbcode-input-border-radius: 8px;
+
+    /* --- BBCode Rendered (Display) --- */
+    --bbcode-rendered-fg-default: var(--cf-text);
+    --bbcode-rendered-fg-muted: var(--cf-muted);
+    --bbcode-rendered-fg-subtle: var(--cf-dim);
+    --bbcode-rendered-canvas-default: transparent;
+    --bbcode-rendered-canvas-subtle: var(--cf-panel-head);
+    --bbcode-rendered-border-default: rgba(var(--cf-cyan-rgb), 0.12);
+    --bbcode-rendered-border-muted: rgba(255, 46, 151, 0.08);
+    --bbcode-rendered-neutral-muted: rgba(167, 154, 212, 0.15);
+    --bbcode-rendered-accent-fg: var(--cf-cyan);
+    --bbcode-rendered-accent-emphasis: #1fb6d8;
+    --bbcode-rendered-attention-subtle: var(--cf-magenta);
+    --bbcode-rendered-danger-fg: var(--cf-red)cc;
+    --bbcode-rendered-quote-bg: rgba(255, 46, 151, 0.05);
+    --bbcode-rendered-quote-border: var(--color-magenta);
+
+    /* --- Forum Posts --- */
+    --post-bg: var(--cf-panel);
+    --post-fg: var(--text-color);
+    --post-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    --post-head-fg: var(--cf-cyan);
+    --post-head-bg: rgba(36, 16, 64, 0.5);
+    --post-toolbar-bg: var(--cf-sunk);
+    --post-toolbar-fg: var(--color-light-purple);
+    --post-toolbar-hover-bg: rgba(255, 46, 151, 0.08);
+    --post-toolbar-hover-fg: var(--cf-cyan);
+    --post-like-fg: var(--cf-lime);
+    --post-dislike-fg: var(--cf-red);
+    --post-aside-bg: var(--cf-sunk);
+    --post-aside-fg: var(--color-light-purple);
+    --post-footer-fg: var(--text-color);
+
+    /* --- Chatbox / Message Bubbles --- */
+    --chatbox-message-bg: var(--cf-panel-head);
+    --chatbox-button-fg: var(--color-light-purple);
+    --chatbox-button-hover-fg: var(--cf-cyan);
+    --chatbox-users-bg: var(--cf-sunk);
+    --chatbox-tab-delete-fg: var(--cf-red);
+    --chatbox-tab-delete-bg: rgba(var(--cf-red-rgb), 0.1);
+    --message-bubble-bg: var(--cf-raised);
+    --message-bubble-fg: var(--text-color);
+    --message-bubble-box-shadow: 0 0 10px rgba(255, 46, 151, 0.1), 0 2px 5px rgba(0, 0, 0, 0.3);
+    --message-bubble-border-radius: 15px;
+    --message-bubble-border: 1px solid rgba(var(--cf-cyan-rgb), 0.1);
+    --message-bubble-avatar-border-radius: 50%;
+
+    /* --- Meta Pages (Movie/TV) --- */
+    --meta-backdrop-filter: brightness(0.25) saturate(1.5);
+    --meta-dropdown-backdrop-filter: brightness(0.3) blur(15px) saturate(1.5);
+    --meta-dropdown-bg: rgba(26, 11, 46, 0.85);
+    --meta-dropdown-backdrop-filter-hover: brightness(0.4) blur(15px) saturate(1.5);
+    --meta-dropdown-hover-bg: rgba(255, 46, 151, 0.12);
+    --meta-dropdown-fg: var(--text-color);
+    --meta-dropdown-hover-fg: var(--cf-cyan);
+    --meta-description-fg: var(--cf-muted);
+    --meta-id-tag-fg: var(--cf-cyan);
+    --meta-id-tag-bg: rgba(var(--cf-cyan-rgb), 0.08);
+    --meta-id-tag-hover-fg: #ffffff;
+    --meta-id-tag-hover-bg: rgba(var(--cf-cyan-rgb), 0.2);
+    --meta-chips-heading-fg: var(--color-light-purple);
+    --meta-chip-icon-fg: var(--cf-panel);
+    --meta-chip-icon-hover-bg: var(--cf-cyan);
+    --meta-chip-icon-bg: var(--color-magenta);
+    --meta-chip-name-fg: var(--cf-text);
+    --meta-chip-value-fg: var(--color-light-purple);
+    --meta-chip-value-hover-fg: var(--cf-cyan);
+    --meta-chip-backdrop-filter-hover: brightness(0.4) blur(15px) saturate(1.5);
+    --meta-chip-hover-bg: rgba(255, 46, 151, 0.1);
+
+    /* --- Form Controls: Text Input --- */
+    --input-text-border: 1px solid rgba(var(--cf-cyan-rgb), 0.2);
+    --input-text-border-active: 2px solid var(--cf-cyan);
+    --input-text-border-error: 1px solid var(--cf-red);
+    --input-text-border-hover: 2px solid var(--color-magenta);
+    --input-text-border-radius: 8px;
+    --input-text-fg: var(--text-color);
+    --input-text-padding: 12px;
+    --input-text-padding-active: 11px;
+    --input-text-padding-hover: 11px;
+
+    /* --- Form Controls: Select --- */
+    --select-border: 1px solid rgba(var(--cf-cyan-rgb), 0.2);
+    --select-border-active: 2px solid var(--cf-cyan);
+    --select-border-error: 1px solid var(--cf-red);
+    --select-border-hover: 2px solid var(--color-magenta);
+    --select-border-radius: 8px;
+    --select-fg: var(--text-color);
+    --select-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><path fill='%233ae4ff' d='M6 8l-1 1l5 5l5-5l-1-1l-4 4l-4-4z'/></svg>");
+    --select-padding: 11px 23px 11px 11px;
+    --select-padding-active: 10px 22px 10px 10px;
+    --select-padding-hover: 10px 22px 10px 10px;
+
+    /* --- Form Controls: Textarea --- */
+    --textarea-border: 1px solid rgba(var(--cf-cyan-rgb), 0.2);
+    --textarea-border-active: 2px solid var(--cf-cyan);
+    --textarea-border-error: 1px solid var(--cf-red);
+    --textarea-border-hover: 2px solid var(--color-magenta);
+    --textarea-border-radius: 8px;
+    --textarea-fg: var(--text-color);
+    --textarea-padding: 12px;
+    --textarea-padding-active: 11px;
+    --textarea-padding-hover: 11px;
+
+    /* --- Form Controls: Fieldset/Label/Legend --- */
+    --fieldset-bg: inherit;
+    --fieldset-fg: var(--text-color);
+    --fieldset-border-radius: 8px;
+    --fieldset-border: 1px solid rgba(var(--cf-cyan-rgb), 0.12);
+    --label-bg: rgba(var(--cf-cyan-rgb), 0.1);
+    --label-fg: var(--color-light-blue);
+    --label-fg-active: var(--cf-cyan);
+    --label-fg-error: var(--cf-red);
+    --label-fg-hover: var(--color-magenta);
+    --legend-fg: var(--color-light-purple);
+    --legend-bg: transparent;
+    --legend-border: none;
+    --legend-border-radius: 0;
+
+    /* --- Dialogs (Modals) --- */
+    --dialog-bg: var(--cf-panel);
+    --dialog-border: 1px solid rgba(255, 46, 151, 0.2);
+    --dialog-border-radius: var(--cf-radius);
+    --dialog-box-shadow: 0 0 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 46, 151, 0.12);
+    --dialog-fg: var(--text-color);
+    --dialog-head-bg: var(--cf-panel-head);
+    --dialog-head-fg: var(--cf-cyan);
+
+    /* --- Quick Search --- */
+    --quick-search-bg: var(--cf-panel);
+    --quick-search-fg: var(--text-color);
+    --quick-search-border: 1px solid rgba(var(--cf-cyan-rgb), 0.2);
+    --quick-search-border-radius: 20px;
+    --quick-search-box-shadow: 0 0 20px rgba(var(--cf-cyan-rgb), 0.1), 0 4px 10px rgba(0, 0, 0, 0.3);
+    --quick-search-selector-fg: var(--color-light-purple);
+    --quick-search-selector-hover-bg: rgba(255, 46, 151, 0.1);
+    --quick-search-selector-hover-fg: var(--cf-cyan);
+    --quick-search-selector-selected-bg: rgba(var(--cf-cyan-rgb), 0.15);
+    --quick-search-selector-selected-fg: var(--cf-cyan);
+    --quick-search-result-bg: var(--cf-panel-head);
+    --quick-search-result-fg: var(--text-color);
+    --quick-search-result-hover-bg: rgba(255, 46, 151, 0.08);
+    --quick-search-result-hover-fg: var(--cf-cyan);
+    --quick-search-result-image-border-radius: 8px;
+    --quick-search-result-year-fg: var(--color-light-purple);
+    --quick-search-result-border: 1px solid rgba(var(--cf-cyan-rgb), 0.06);
+
+    /* --- Breadcrumbs --- */
+    --breadcrumb-fg: var(--color-light-purple);
+    --breadcrumb-active-fg: var(--cf-cyan);
+    --breadcrumb-hover-fg: var(--color-light-magenta);
+    --breadcrumb-inactive-text-decoration: none;
+
+    /* --- Key-Value Display --- */
+    --key-value-even-bg: var(--cf-sunk);
+    --key-value-odd-bg: var(--cf-panel);
+    --key-value-fg: var(--text-color);
+    --key-value-padding: 10px;
+
+    /* --- Alerts --- */
+    --alert-bg: var(--cf-panel-head);
+    --alert-fg: var(--text-color);
+    --alert-gap-color: rgba(var(--cf-cyan-rgb), 0.1);
+    --alert-gap-width: 1px;
+
+    /* --- Article Cards --- */
+    --article-card-bg: var(--cf-panel);
+    --article-card-fg: var(--text-color);
+    --article-card-head-fg: var(--cf-cyan);
+    --article-card-time-fg: var(--color-light-purple);
+    --article-box-shadow: 0 0 15px rgba(255, 46, 151, 0.06), 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    /* --- Achievements --- */
+    --achievement-fg: var(--text-color);
+    --achievement-bg: var(--cf-panel);
+    --achievement-box-shadow: 0 0 15px rgba(var(--cf-cyan-rgb), 0.08), 0 2px 8px rgba(0, 0, 0, 0.3);
+    --achievement-progress-bg: var(--cf-cyan);
+
+    /* --- MediaHub Cards --- */
+    --mediahub-card-bg: var(--cf-panel);
+    --mediahub-card-fg: var(--text-color);
+    --mediahub-card-hover-fg: var(--cf-cyan);
+    --mediahub-card-border: 1px solid rgba(255, 46, 151, 0.08);
+    --mediahub-card-border-radius: 10px;
+    --mediahub-card-box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+
+    /* --- Playlist Cards --- */
+    --playlist-card-bg: var(--cf-panel);
+    --playlist-card-border: 1px solid rgba(var(--cf-cyan-rgb), 0.08);
+    --playlist-card-border-radius: 10px;
+    --playlist-card-box-shadow: 0 0 15px rgba(255, 46, 151, 0.06), 0 4px 10px rgba(0, 0, 0, 0.3);
+    --playlist-card-fg: var(--text-color);
+    --playlist-card-missing-image-bg: var(--cf-panel-head);
+    --playlist-card-missing-image-fg: var(--color-light-purple);
+
+    /* --- User Stat Cards --- */
+    --user-stat-card-bg: var(--cf-panel);
+    --user-stat-card-fg: var(--text-color);
+    --user-stat-card-border: 1px solid rgba(255, 46, 151, 0.08);
+    --user-stat-card-border-radius: 10px;
+    --user-stat-card-box-shadow: 0 0 12px rgba(var(--cf-cyan-rgb), 0.06);
+
+    /* --- Prizes --- */
+    --prize-bg: var(--cf-panel);
+    --prize-border-radius: 12px;
+    --prize-border: 1px solid rgba(255, 46, 151, 0.1);
+    --prize-box-shadow: 0 0 20px rgba(255, 46, 151, 0.08), 0 4px 10px rgba(0, 0, 0, 0.3);
+    --prize-fg: var(--text-color);
+    --prize-heading-fg: var(--cf-cyan);
+    --prize-icon-primary-color: var(--cf-cyan);
+    --prize-icon-secondary-color: var(--cf-magenta);
+
+    /* --- Donations --- */
+    --donation-border-color: rgba(255, 46, 151, 0.15);
+    --donation-box-shadow-color: rgba(var(--cf-cyan-rgb), 0.08);
+    --donation-primary-text-color: var(--cf-text);
+    --donation-secondary-text-color: var(--cf-muted);
+    --donation-background-color: var(--cf-panel);
+    --donation-price-days-color: var(--cf-amber);
+    --donation-chart-daily-bg: rgba(var(--cf-lime-rgb), 0.15);
+    --donation-chart-daily-border: rgba(var(--cf-lime-rgb), 0.8);
+    --donation-chart-monthly-bg: rgba(255, 46, 151, 0.15);
+    --donation-chart-monthly-border: rgba(255, 46, 151, 0.8);
+
+    /* --- Comparison --- */
+    --comparison-divider-fg: var(--cf-cyan);
+    --comparison-button-fg: #ffffff;
+
+    /* --- Subforum Listings --- */
+    --subforum-listing-odd-bg: var(--cf-panel);
+    --subforum-listing-even-bg: var(--cf-sunk);
+    --subforum-listing-border: 1px solid rgba(var(--cf-cyan-rgb), 0.06);
+
+    /* --- Pagination --- */
+    --paginate-bg: var(--cf-panel);
+    --paginate-bg-hover: rgba(255, 46, 151, 0.1);
+    --paginate-bg-current: rgba(var(--cf-cyan-rgb), 0.15);
+    --paginate-fg: var(--color-light-purple);
+    --paginate-fg-disabled: var(--cf-dim);
+    --paginate-divider: rgba(var(--cf-cyan-rgb), 0.08);
+
+    /* --- Notifications --- */
+    --notification-read: var(--cf-line);
+    --notification-unread: var(--cf-magenta);
+
+    /* --- Options --- */
+    --option-bg: var(--cf-panel-head);
+    --option-fg: var(--text-color);
+
+    /* --- Meter --- */
+    --meter-fg: var(--cf-panel-head);
+    --meter-bg: var(--color-blue);
+
+    /* --- Footer --- */
+    --footer-bg: rgba(10, 4, 24, 0.9);
+    --footer-hr-fg: rgba(255, 46, 151, 0.15);
+
+    /* --- Scrollbar --- */
+    --scrollbar-color: rgba(var(--cf-cyan-rgb), 0.3);
+}
+
+
+/* ============================================================================
+ * 2. PAGE — ink, horizon glow, perspective floor
+ * ========================================================================== */
+
+html {
+    background-color: var(--cf-ink);
+    background-image:
+        radial-gradient(1100px 640px at 50% -14%, rgba(var(--cf-magenta-rgb), 0.13), transparent 62%),
+        radial-gradient(820px 520px at 88% -8%, rgba(var(--cf-cyan-rgb), 0.10), transparent 60%),
+        radial-gradient(700px 420px at 6% 4%, rgba(var(--cf-lime-rgb), 0.05), transparent 62%),
+        linear-gradient(180deg, var(--cf-ink) 0%, #080213 60%, #05010d 100%);
+    background-attachment: fixed;
+}
+
+body {
+    background: transparent;
+    color: var(--cf-text);
+    font-family: var(--cf-sans);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* The floor: two grid planes folded away from the viewer, fading at the
+   horizon so text never fights the lines. */
+body::before {
+    content: "";
+    position: fixed;
+    left: -30vw;
+    right: -30vw;
+    bottom: 0;
+    height: 64vh;
+    pointer-events: none;
+    z-index: -1;
+    background-image:
+        repeating-linear-gradient(90deg, rgba(var(--cf-cyan-rgb), 0.22) 0 1px, transparent 1px 76px),
+        repeating-linear-gradient(0deg, rgba(var(--cf-magenta-rgb), 0.18) 0 1px, transparent 1px 76px);
+    transform: perspective(520px) rotateX(64deg);
+    transform-origin: 50% 100%;
+    -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.6) 42%, transparent 84%);
+    mask-image: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.6) 42%, transparent 84%);
+}
+
+/* A single warm slit of light on the horizon line. */
+body::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 36vh;
+    height: 1px;
+    pointer-events: none;
+    z-index: -1;
+    background: linear-gradient(90deg, transparent, rgba(var(--cf-magenta-rgb), 0.55), rgba(var(--cf-cyan-rgb), 0.45), transparent);
+    opacity: 0.5;
+}
+
+/* ============================================================================
+ * 3. TYPE, LINKS, FOCUS
+ * ========================================================================== */
+
+a {
+    color: var(--cf-cyan);
+    text-decoration: none;
+    text-underline-offset: 3px;
+    transition: color 0.15s ease, text-shadow 0.15s ease;
+}
+
+a:hover,
+a:focus {
+    color: #8af0ff;
+    text-shadow: 0 0 10px rgba(var(--cf-cyan-rgb), 0.45);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--cf-cyan);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+::placeholder {
+    color: var(--cf-dim);
+    opacity: 1;
+}
+
+/* Text helpers — kept for UNIT3D's own utility classes. */
+.text-bright { color: var(--cf-text-bright); }
+.text-bright:hover, a.text-bright:hover { color: #8af0ff; text-shadow: 0 0 10px rgba(var(--cf-cyan-rgb), 0.5); }
+.text-blue { color: var(--cf-cyan); }
+.text-purple { color: var(--cf-lilac); }
+.text-green { color: var(--cf-lime); }
+.text-muted { color: var(--cf-muted); }
+.text-red { color: var(--cf-red); }
+.text-orange { color: var(--cf-orange); }
+.text-pink { color: var(--cf-magenta); }
+.text-danger { color: var(--cf-red); }
+
+/* ============================================================================
+ * 4. PANELS — lit edge, hairline, a tick that names the section
+ * ========================================================================== */
+
+.panel {
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(2px);
+}
+
+.panel::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(var(--cf-cyan-rgb), 0.5), rgba(var(--cf-magenta-rgb), 0.35), transparent);
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.panel__head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #dff3ff;
+    text-shadow: none;
+    border-bottom: 1px solid var(--cf-line);
+}
+
+.panel__head::before {
+    content: "";
+    flex: none;
+    width: 3px;
+    height: 14px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--cf-magenta), var(--cf-cyan));
+    box-shadow: 0 0 10px rgba(var(--cf-magenta-rgb), 0.55);
+}
+
+.panel__body { color: var(--cf-text); }
+
+/* ============================================================================
+ * 5. NAVIGATION
+ * ========================================================================== */
+
+.top-nav a,
+.secondary-nav a {
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.top-nav a:hover,
+.secondary-nav a:hover {
+    text-shadow: none;
+}
+
+.secondary-nav a[aria-current="page"],
+.secondary-nav .active {
+    position: relative;
+    color: var(--cf-cyan);
+}
+
+.secondary-nav .active::after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    bottom: -1px;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--cf-magenta), var(--cf-cyan));
+    box-shadow: 0 0 10px rgba(var(--cf-cyan-rgb), 0.5);
+}
+
+/* ============================================================================
+ * 6. TABLES — the tracker's real interface
+ * ========================================================================== */
+
+.data-table,
+.torrent-table {
+    font-variant-numeric: tabular-nums;
+    border-collapse: collapse;
+}
+
+.data-table thead th,
+.torrent-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cf-muted);
+    white-space: nowrap;
+}
+
+.data-table tbody tr,
+.torrent-table tbody tr {
+    transition: background-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.data-table tbody tr:hover,
+.torrent-table tbody tr:hover {
+    box-shadow: inset 2px 0 0 var(--cf-cyan);
+}
+
+.data-table td,
+.torrent-table td {
+    vertical-align: middle;
+}
+
+/* ============================================================================
+ * 7. BUTTONS, CHIPS, BADGES, FORMS
+ * ========================================================================== */
+
+.btn {
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: transform 0.12s ease, box-shadow 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--cf-glow-magenta);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+    box-shadow: 0 0 20px rgba(var(--cf-cyan-rgb), 0.28);
+}
+
+.tag,
+.torrent-tag,
+.badge-user {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    border-radius: 6px;
+    text-shadow: none;
+}
+
+.badge-user {
+    border: 1px solid var(--cf-line-cool);
+    background-color: rgba(var(--cf-cyan-rgb), 0.07);
+    color: var(--cf-cyan);
+}
+
+.form-control,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+select,
+textarea {
+    font-family: inherit;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-control:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    box-shadow: var(--cf-ring);
+}
+
+/* ============================================================================
+ * 8. CHAT, POSTS, PAGINATION, ALERTS, CODE, FOOTER
+ * ========================================================================== */
+
+/* Chatbox frame */
+#frame { background: var(--cf-sunk); }
+
+#frame .content .messages ul li {
+    border-bottom: 1px solid var(--cf-line);
+}
+
+.chatbox .typing { color: var(--cf-lime); }
+
+.chatbox-message__content {
+    font-size: 14px;
+    padding: 0 8px 4px 8px;
+}
+
+.chatbox-message__content > div > br:nth-of-type(n+2) {
+    display: none;
+}
+
+.chatbox-message__address {
+    font-size: 12px;
+    color: var(--cf-muted);
+}
+
+.chatroom__messages { gap: 6px; }
+
+/* Sent messages — bubble with a hot left edge */
+.sent > h4,
+.sent > div {
+    border-radius: 14px;
+    border: 1px solid rgba(var(--cf-magenta-rgb), 0.16);
+    box-shadow: none;
+}
+
+.sent > div {
+    border-left: 2px solid var(--cf-magenta);
+    box-shadow: 0 6px 18px -12px rgba(var(--cf-magenta-rgb), 0.6);
+}
+
+/* Special event / freeleech bar */
+.special-event-alert {
+    padding: 5px;
+    border: 1px solid rgba(var(--cf-amber-rgb), 0.32);
+    border-left: 3px solid var(--cf-amber);
+    box-shadow: 0 0 20px rgba(var(--cf-amber-rgb), 0.10);
+}
+
+.special-event-alert > .alert__content {
+    width: 75%;
+    display: flex;
+    justify-content: space-around;
+}
+
+@media screen and (max-width: 512px) {
+    .special-event-alert > .alert__content { width: 98%; }
+}
+
+/* Code blocks */
+code,
+kbd,
+pre {
+    font-family: var(--cf-mono);
+}
+
+.bbcode-rendered__code-block,
+.bbcode-rendered pre {
+    background: var(--cf-sunk) !important;
+    border: 1px solid var(--cf-line-cool) !important;
+    border-radius: var(--cf-radius-sm);
+    font-size: 12.5px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Pagination */
+.pagination .page,
+.paginate__link {
+    border-radius: var(--cf-radius-sm);
+    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pagination .page.current,
+.paginate__link.current {
+    box-shadow: inset 0 0 0 1px rgba(var(--cf-cyan-rgb), 0.4), 0 0 14px rgba(var(--cf-cyan-rgb), 0.18);
+}
+
+/* Alerts get a job-coloured edge so the type reads before the text does. */
+.alert {
+    border-left: 3px solid var(--cf-amber);
+    border-radius: 0 var(--cf-radius-sm) var(--cf-radius-sm) 0;
+}
+
+/* Footer icon */
+.footer__icon { color: var(--cf-magenta); }
+
+/* ============================================================================
+ * 9. SCROLLBAR, SELECTION
+ * ========================================================================== */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--cf-cyan-rgb), 0.28) rgba(10, 4, 24, 0.6);
+}
+
+*::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgba(10, 4, 24, 0.6);
+}
+
+*::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, rgba(var(--cf-cyan-rgb), 0.35), rgba(var(--cf-magenta-rgb), 0.35));
+    border-radius: 10px;
+    border: 2px solid rgba(10, 4, 24, 0.6);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, rgba(var(--cf-cyan-rgb), 0.6), rgba(var(--cf-magenta-rgb), 0.6));
+}
+
+::selection {
+    background: rgba(var(--cf-magenta-rgb), 0.32);
+    color: var(--cf-text-bright);
+}
+
+/* ============================================================================
+ * 10. MOTION
+ * ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+/* ============================================================================
+ * 11. CUSTOM SVG ICONS — Cyber/geometric replacements
+ * ========================================================================== */
+
+/* --- Icon sizes by context --- */
+
+/* User Profile: 22px */
+.userprofile__banner .fa-user::before,
+.userprofile__banner .fa-user-plus::before,
+.userprofile__banner .fa-user-tag::before,
+.userprofile__banner .fa-user-tie::before,
+.userprofile__banner .fa-user-graduate::before,
+.userprofile__banner .fa-user-md::before,
+.userprofile__banner .fa-user-secret::before,
+.userprofile__banner .fa-user-astronaut::before,
+.userprofile__banner .fa-angle-up::before,
+.userprofile__banner .fa-angles-up::before,
+.userprofile__banner .fa-shield::before,
+.userprofile__banner .fa-edit::before,
+.userprofile__banner .fa-magic::before,
+.userprofile__banner .fa-balance-scale::before,
+.userprofile__banner .fa-terminal::before,
+.userprofile__banner .fa-user-cog::before,
+.userprofile__banner .fa-fire::before,
+.userprofile__banner .fa-crown::before,
+.userprofile__banner .fa-paint-brush::before,
+.userprofile__banner .user-tag__link.fa-life-ring::before {
+    width: 22px;
+    height: 22px;
+}
+
+/* Header / Top 8: 18px */
+.top-nav .fa-user::before,
+.top-nav .fa-user-plus::before,
+.top-nav .fa-user-tag::before,
+.top-nav .fa-user-tie::before,
+.top-nav .fa-user-graduate::before,
+.top-nav .fa-user-md::before,
+.top-nav .fa-user-secret::before,
+.top-nav .fa-user-astronaut::before,
+.top-nav .fa-angle-up::before,
+.top-nav .fa-angles-up::before,
+.top-nav .fa-shield::before,
+.top-nav .fa-edit::before,
+.top-nav .fa-magic::before,
+.top-nav .fa-balance-scale::before,
+.top-nav .fa-terminal::before,
+.top-nav .fa-user-cog::before,
+.top-nav .fa-fire::before,
+.top-nav .fa-crown::before,
+.top-nav .fa-life-ring::before,
+.top-nav .fa-paint-brush::before,
+.user-stat-card .fa-user::before,
+.user-stat-card .fa-user-plus::before,
+.user-stat-card .fa-user-tag::before,
+.user-stat-card .fa-user-tie::before,
+.user-stat-card .fa-user-graduate::before,
+.user-stat-card .fa-user-md::before,
+.user-stat-card .fa-user-secret::before,
+.user-stat-card .fa-user-astronaut::before,
+.user-stat-card .fa-angle-up::before,
+.user-stat-card .fa-angles-up::before,
+.user-stat-card .fa-shield::before,
+.user-stat-card .fa-edit::before,
+.user-stat-card .fa-magic::before,
+.user-stat-card .fa-balance-scale::before,
+.user-stat-card .fa-terminal::before,
+.user-stat-card .fa-user-cog::before,
+.user-stat-card .fa-fire::before,
+.user-stat-card .fa-crown::before,
+.user-stat-card .fa-life-ring::before,
+.user-stat-card .fa-paint-brush::before {
+    width: 18px;
+    height: 18px;
+}
+
+/* Default: 15px */
+.fa-user::before,
+.fa-user-plus::before,
+.fa-user-tag::before,
+.fa-user-tie::before,
+.fa-user-graduate::before,
+.fa-user-md::before,
+.fa-user-secret::before,
+.fa-user-astronaut::before,
+.fa-angle-up::before,
+.fa-angles-up::before,
+.fa-shield::before,
+.fa-edit::before,
+.fa-magic::before,
+.fa-balance-scale::before,
+.fa-terminal::before,
+.fa-user-cog::before,
+.fa-fire::before,
+.fa-crown::before,
+.fa-paint-brush::before,
+.user-tag__link.fa-life-ring::before {
+    width: 15px;
+    height: 15px;
+}
+
+/* --- Custom SVG icon replacements --- */
+
+/* User: Hexagonal cyber-frame avatar */
+.fa-user::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Cpath%20d%3D%27M75%208%20L132%2041%20L132%20109%20L75%20142%20L18%20109%20L18%2041%20Z%27%20fill%3D%27%233ae4ff%27%20fill-opacity%3D%270.12%27%20stroke%3D%27%233ae4ff%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2775%27%20cy%3D%2756%27%20r%3D%2722%27%20fill%3D%27%233ae4ff%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M38%20135%20Q75%2088%20112%20135%20Z%27%20fill%3D%27%233ae4ff%27%2F%3E%0A%3C%2Fsvg%3E');
+}
+
+/* User-Plus: Hex frame with neon plus */
+.fa-user-plus::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Cpath%20d%3D%27M75%208%20L132%2041%20L132%20109%20L75%20142%20L18%20109%20L18%2041%20Z%27%20fill%3D%27%233ae4ff%27%20fill-opacity%3D%270.12%27%20stroke%3D%27%233ae4ff%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2765%27%20cy%3D%2751%27%20r%3D%2720%27%20fill%3D%27%233ae4ff%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M30%20128%20Q65%2085%20100%20128%20Z%27%20fill%3D%27%233ae4ff%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M115%2035%20L115%2060%20M102%2047%20L128%2047%27%20stroke%3D%27%23ff2e97%27%20stroke-width%3D%276%27%20stroke-linecap%3D%27round%27%20fill%3D%27none%27%2F%3E%0A%3C%2Fsvg%3E');
+}
+
+/* Shield: Circuit-node shield */
+.fa-shield::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Cpath%20d%3D%27M75%206%20L128%2030%20L128%2082%20Q128%20120%2075%20144%20Q22%20120%2022%2082%20L22%2030%20Z%27%20fill%3D%27%23ff2e97%27%20fill-opacity%3D%270.1%27%20stroke%3D%27%23ff2e97%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M75%2040%20L75%20100%20M50%2070%20L100%2070%27%20stroke%3D%27%23ff2e97%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27%20fill%3D%27none%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2775%27%20cy%3D%2770%27%20r%3D%278%27%20fill%3D%27%23ff2e97%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2775%27%20cy%3D%2740%27%20r%3D%275%27%20fill%3D%27%233ae4ff%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2775%27%20cy%3D%27100%27%20r%3D%275%27%20fill%3D%27%233ae4ff%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2750%27%20cy%3D%2770%27%20r%3D%275%27%20fill%3D%27%233ae4ff%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%27100%27%20cy%3D%2770%27%20r%3D%275%27%20fill%3D%27%233ae4ff%27%2F%3E%0A%3C%2Fsvg%3E');
+}
+
+/* Fire: Angular geometric flame */
+.fa-fire::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Cpath%20d%3D%27M75%204%20L95%2034%20L120%2044%20L105%2070%20L130%2085%20L95%2095%20L105%20130%20L75%20115%20L45%20130%20L55%2095%20L20%2085%20L45%2070%20L30%2044%20L55%2034%20Z%27%20fill%3D%27%23ff7a1a%27%20fill-opacity%3D%270.3%27%20stroke%3D%27%23ff7a1a%27%20stroke-width%3D%272%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M75%2030%20L88%2050%20L100%2055%20L90%2072%20L75%2080%20L60%2072%20L50%2055%20L62%2050%20Z%27%20fill%3D%27%23ffb020%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M75%2050%20L82%2062%20L88%2065%20L82%2074%20L75%2078%20L68%2074%20L62%2065%20L68%2062%20Z%27%20fill%3D%27%23ff2e97%27%2F%3E%0A%3C%2Fsvg%3E');
+}
+
+/* Crown: Geometric crown with neon gems */
+.fa-crown::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Cpath%20d%3D%27M20%20110%20L30%2040%20L55%2075%20L75%2030%20L95%2075%20L120%2040%20L130%20110%20Z%27%20fill%3D%27%23ff2e97%27%20fill-opacity%3D%270.15%27%20stroke%3D%27%23ff2e97%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Crect%20x%3D%2720%27%20y%3D%27110%27%20width%3D%27110%27%20height%3D%2718%27%20fill%3D%27%23ff2e97%27%20fill-opacity%3D%270.2%27%20stroke%3D%27%23ff2e97%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2730%27%20cy%3D%2740%27%20r%3D%276%27%20fill%3D%27%233ae4ff%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2775%27%20cy%3D%2730%27%20r%3D%277%27%20fill%3D%27%23ffb020%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%27120%27%20cy%3D%2740%27%20r%3D%276%27%20fill%3D%27%233ae4ff%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2755%27%20cy%3D%2775%27%20r%3D%275%27%20fill%3D%27%23ff2e97%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2795%27%20cy%3D%2775%27%20r%3D%275%27%20fill%3D%27%23ff2e97%27%2F%3E%0A%3C%2Fsvg%3E');
+}
+
+/* Terminal: Terminal window with >_ prompt */
+.fa-terminal::before {
+    content: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20150%20150%27%3E%0A%20%20%3Crect%20x%3D%2712%27%20y%3D%2725%27%20width%3D%27126%27%20height%3D%27100%27%20rx%3D%278%27%20fill%3D%27%230a0418%27%20stroke%3D%27%233ae4ff%27%20stroke-width%3D%273%27%2F%3E%0A%20%20%3Crect%20x%3D%2712%27%20y%3D%2725%27%20width%3D%27126%27%20height%3D%2720%27%20rx%3D%278%27%20fill%3D%27%233ae4ff%27%20fill-opacity%3D%270.15%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2728%27%20cy%3D%2735%27%20r%3D%274%27%20fill%3D%27%23ff2e97%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2742%27%20cy%3D%2735%27%20r%3D%274%27%20fill%3D%27%23ffb020%27%2F%3E%0A%20%20%3Ccircle%20cx%3D%2756%27%20cy%3D%2735%27%20r%3D%274%27%20fill%3D%27%23b4ff3f%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M30%2065%20L48%2080%20L30%2095%27%20stroke%3D%27%23b4ff3f%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%20stroke-linejoin%3D%27round%27%20fill%3D%27none%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M60%2095%20L95%2095%27%20stroke%3D%27%233ae4ff%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%20fill%3D%27none%27%2F%3E%0A%3C%2Fsvg%3E');
+}
