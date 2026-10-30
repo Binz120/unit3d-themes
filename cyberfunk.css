@@ -1,5 +1,5 @@
 /* ============================================================================
- * CYBERFUNK — UNIT3D custom theme
+ * CYBERFUNK: UNIT3D custom theme
  *
  * Cyberpunk bones, funk blood: aubergine ink, acid lime for the numbers that
  * climb, hot magenta for the things that want your eye, electric cyan for
@@ -509,7 +509,7 @@
 
 
 /* ============================================================================
- * 2. PAGE — ink, horizon glow, perspective floor
+ * 2. PAGE: ink, horizon glow, perspective floor
  * ========================================================================== */
 
 html {
@@ -597,7 +597,7 @@ summary:focus-visible,
     opacity: 1;
 }
 
-/* Text helpers — kept for UNIT3D's own utility classes. */
+/* Text helpers, kept for UNIT3D's own utility classes. */
 .text-bright { color: var(--cf-text-bright); }
 .text-bright:hover, a.text-bright:hover { color: #8af0ff; text-shadow: 0 0 10px rgba(var(--cf-cyan-rgb), 0.5); }
 .text-blue { color: var(--cf-cyan); }
@@ -610,7 +610,7 @@ summary:focus-visible,
 .text-danger { color: var(--cf-red); }
 
 /* ============================================================================
- * 4. PANELS — lit edge, hairline, a tick that names the section
+ * 4. PANELS: lit edge, hairline, a tick that names the section
  * ========================================================================== */
 
 .panel {
@@ -688,7 +688,7 @@ summary:focus-visible,
 }
 
 /* ============================================================================
- * 6. TABLES — the tracker's real interface
+ * 6. TABLES: the tracker's real interface
  * ========================================================================== */
 
 .data-table,
@@ -815,7 +815,7 @@ textarea:focus {
 
 .chatroom__messages { gap: 6px; }
 
-/* Sent messages — bubble with a hot left edge */
+/* Sent messages, with a hot left edge */
 .sent > h4,
 .sent > div {
     border-radius: 14px;
@@ -931,7 +931,7 @@ pre {
     }
 }
 /* ============================================================================
- * 11. CUSTOM SVG ICONS — Cyber/geometric replacements
+ * 11. CUSTOM SVG ICONS: cyber/geometric replacements
  * ========================================================================== */
 
 /* --- Icon sizes by context --- */

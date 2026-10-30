@@ -1,4 +1,4 @@
-# Cyberfunk — a UNIT3D theme
+# Cyberfunk: a UNIT3D theme
 
 Cyberpunk bones, funk blood. A skin for [UNIT3D](https://github.com/HDInnovations/UNIT3D-Community-Edition) tracker front ends: aubergine ink, acid lime for the numbers that climb, hot magenta for the things worth noticing, electric cyan for everything you can click. A perspective grid on the floor, a lit hairline on every panel, and geometric SVG icons in place of the default FontAwesome rank badges.
 
@@ -24,7 +24,7 @@ UNIT3D exposes a per-user custom CSS box, so no rebuild is needed:
 
 1. Host `cyberfunk.css` somewhere public (raw.githubusercontent, a CDN, your own box) or paste its contents directly.
 2. In UNIT3D go to **Settings → custom_css** and place the stylesheet there.
-3. Pick a dark base first — the theme is tuned for **Galactic (style 1)** or **Material Dark (style 13)**.
+3. Pick a dark base first. The theme is tuned for **Galactic (style 1)** or **Material Dark (style 13)**.
 
 Because it points UNIT3D's own CSS custom properties at a small token layer rather than hardcoding selectors, most of the theme follows the base theme's structure; the glow, table and icon sections are the parts that assume specific component classes (`.top-nav`, `.panel__head`, `.data-table`, `.chatbox`, `.badge-user`, `.bbcode-rendered`).
 
@@ -78,8 +78,8 @@ python3 -m http.server 8000   # open http://localhost:8000
 
 ## Contributing
 
-Selector fixes for other UNIT3D versions and forks are welcome — open an issue with a screenshot and the version you're on.
+Selector fixes for other UNIT3D versions and forks are welcome. Open an issue with a screenshot and the version you're on.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
