@@ -4,7 +4,7 @@ Cyberpunk bones, funk blood. A skin for [UNIT3D](https://github.com/HDInnovation
 
 ![Cyberfunk preview](docs/preview.png)
 
-**Live preview:** <https://binz120.github.io/unit3d-themes/>
+**Live preview:** <https://binz120.github.io/cyberfunk/>
 
 ---
 
@@ -71,8 +71,8 @@ If a variable is not set here it falls back to the base theme, which is why the 
 To review locally:
 
 ```bash
-git clone https://github.com/Binz120/unit3d-themes.git
-cd unit3d-themes
+git clone https://github.com/Binz120/cyberfunk.git
+cd cyberfunk
 python3 -m http.server 8000   # open http://localhost:8000
 ```
 
